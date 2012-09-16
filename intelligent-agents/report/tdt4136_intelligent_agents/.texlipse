@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Sat Sep 08 13:15:49 CEST 2012
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=document.tex
+outputFile=assignment_1_boileau_stastny.pdf
+langSpell=en
+markDer=true
+srcDir=
