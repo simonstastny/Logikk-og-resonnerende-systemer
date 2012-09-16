@@ -12,11 +12,10 @@ public class FractionPuzzle extends BestFirstSearch {
 
   @Override
   public void search() {
-    
     // we do not care about path to solution
     setPathReconstruction(false);
     
-    // add al goals
+    // add all goal-states (fractions we want to find)
     List<FractionState> goals = new ArrayList<FractionState>();
     goals.add(new FractionState(1, 2));
     goals.add(new FractionState(1, 3));
@@ -29,17 +28,19 @@ public class FractionPuzzle extends BestFirstSearch {
     
     // look for one goal at a time
     for (FractionState fractionState : goals) {
+      // generate goal node
       FractionNode goalNode = new FractionNode();
       goalNode.setBFs(this);
       goalNode.setState(fractionState);
+      setGoal(goalNode);
       
+      // generate root state
       FractionNode rootNode = new FractionNode();
       rootNode.setBFs(this);
       rootNode.setState(new FractionState("123456789"));
-      
-      setGoal(goalNode);
       setRoot(rootNode);
       
+      // start search
       super.search();
     }
   }

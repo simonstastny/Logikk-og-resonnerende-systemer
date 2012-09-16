@@ -6,7 +6,7 @@ package edu.ntnu.simonst.tdt4136.astar;
  */
 public abstract class SearchNode implements Comparable{
 
-  // delegate to BFS instance, which hold i.e. node-map and other stuff
+  // delegate to BFS instance, which hold i.e. node-map, goal-node and other stuff
   protected BestFirstSearch bfs;
 
   public void setBFs(BestFirstSearch bfs) {
@@ -28,19 +28,31 @@ public abstract class SearchNode implements Comparable{
   // is open closed or open (i.e. visited)
   protected boolean open = true;
   
+  /**
+   * Method for resolving whether this node is a solution.
+   * @return true if node is solution
+   */
+  public abstract boolean isSolution();
+  
+  /**
+   * Returns whether this node is open or closed.
+   * @return true if node is open
+   */
   public boolean isOpen() {
     return open;
   }
   
+  /**
+   * closes node (after expansion)
+   */
   public void close() {
     open = false;
   }
 
   /**
    * calculate cost estimate from this node to goal state
-   * @param goalNode 
    */
-  public abstract void calculateCosts(SearchNode goalNode);
+  public abstract void calculateCosts();
 
   protected int costEstimate;
   protected int currentCost = 0;
@@ -53,8 +65,6 @@ public abstract class SearchNode implements Comparable{
     return costEstimate;
   }
 
-  public abstract boolean isSolution(SearchNode goal);
-
   public int getTotalCostEstimate() {
     return getCurrentCost() + getCostEstimate();
   }
@@ -63,7 +73,7 @@ public abstract class SearchNode implements Comparable{
     return state;
   }
 
-  public Fringe getChildren(SearchNode goal) {
+  public Fringe getChildren() {
     return children;
   }
 

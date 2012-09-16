@@ -11,9 +11,9 @@ import edu.ntnu.simonst.tdt4136.astar.SearchNode;
 public class FractionNode extends SearchNode {
 
   @Override
-  public void calculateCosts(SearchNode goalNode) {
-    if (goalNode.getState() instanceof FractionState) {
-      FractionState goalFraction = (FractionState) goalNode.getState();
+  public void calculateCosts() {
+    if (bfs.getGoal().getState() instanceof FractionState) {
+      FractionState goalFraction = (FractionState) bfs.getGoal().getState();
       FractionState thisFraction = (FractionState) this.getState();
 
       costEstimate = goalFraction.getDistance(thisFraction, goalFraction);
@@ -25,12 +25,12 @@ public class FractionNode extends SearchNode {
   }
 
   @Override
-  public boolean isSolution(SearchNode goal) {
+  public boolean isSolution() {
     return getCostEstimate() == 0;
   }
 
   @Override
-  public Fringe getChildren(SearchNode goal) {
+  public Fringe getChildren() {
     if (children == null) {
       children = new Fringe();
 
@@ -49,7 +49,7 @@ public class FractionNode extends SearchNode {
             genNeighbour.setState(new FractionState(newperm));
             genNeighbour.setBFs(bfs);
             //calculate his costs
-            genNeighbour.calculateCosts(goal);
+            genNeighbour.calculateCosts();
 
             //this is a new node, we should record which parent was the best for him
             genNeighbour.setCurrentParent(this);
@@ -67,12 +67,12 @@ public class FractionNode extends SearchNode {
 
 
       // select only the best child and add it to the fringe
-      SearchNode best = children.getNearestNode(goal);
+      SearchNode best = children.getNearestNode(bfs.getGoal());
       children.clear();
       children.add(best);
     }
 
-    return super.getChildren(goal);
+    return super.getChildren();
   }
 
   @Override

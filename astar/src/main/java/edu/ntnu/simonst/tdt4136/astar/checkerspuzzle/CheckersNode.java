@@ -10,13 +10,14 @@ import edu.ntnu.simonst.tdt4136.astar.SearchNode;
 public class CheckersNode extends SearchNode {
 
   @Override
-  public void calculateCosts(SearchNode goalNode) {
-    CheckersState goalState = (CheckersState) goalNode.getState();
+  public void calculateCosts() {
+    // cost estimate is distance of two states (see @s CheckersState.getDistance(a,b)
+    CheckersState goalState = (CheckersState) bfs.getGoal().getState();
     CheckersState currentState = (CheckersState) this.getState();
 
     costEstimate = goalState.getDistance(goalState, currentState);
 
-    // child is in distance 1 from parent
+    // current cost is parent's cost + 1, while root has 0 current cost
     if (getCurrentParent() != null) {
       currentCost = 1 + getCurrentParent().getCurrentCost();
     }
@@ -24,11 +25,12 @@ public class CheckersNode extends SearchNode {
   }
 
   @Override
-  public boolean isSolution(SearchNode goal) {
-    if (goal instanceof CheckersNode && goal.getState() instanceof CheckersState) {
-      CheckersState other = (CheckersState) goal.getState();
+  public boolean isSolution() {
+    if (bfs.getGoal() instanceof CheckersNode && bfs.getGoal().getState() instanceof CheckersState) {
+      CheckersState other = (CheckersState) bfs.getGoal().getState();
       CheckersState thisOne = (CheckersState) this.getState();
 
+      // two states are equal when their identifiers are equal
       if (other.getIdentifier().equals(thisOne.getIdentifier())) {
         return true;
       }
@@ -38,20 +40,20 @@ public class CheckersNode extends SearchNode {
   }
 
   @Override
-  public Fringe getChildren(SearchNode goal) {
-      children = new Fringe();
+  public Fringe getChildren() {
+    children = new Fringe();
 
     // generate all children of current node
     // make all possible one-swap permutations
     CheckersState currentState = (CheckersState) state;
 
-    // aply operators to generate children
-    addNode(currentState.moveLeft(), goal);
-    addNode(currentState.moveRight(), goal);
-    addNode(currentState.jumpLeft(), goal);
-    addNode(currentState.jumpRight(), goal);
+    // apply operators to generate children
+    addNode(currentState.moveLeft());
+    addNode(currentState.moveRight());
+    addNode(currentState.jumpLeft());
+    addNode(currentState.jumpRight());
 
-    return super.getChildren(goal);
+    return super.getChildren();
   }
 
   @Override
@@ -72,23 +74,32 @@ public class CheckersNode extends SearchNode {
     }
   }
 
-  //FIXME
-  protected void addNode(String newperm, SearchNode goal) {
+  /**
+   * Creates a new state, new node, links them and add is to the Fringe.
+   * @param newperm permutation for a new state and node to be created and added to the fringe
+   */
+  protected void addNode(String newperm) {
+    // sometimes the move/jump operation could not be performed and the permutations stays the same
+    // we do not want those states to be added to the fringe again
+    if (((CheckersState) getState()).getIdentifier().equals(newperm)) {
+      return;
+    }
+    
+    // get the node from the node-table
     SearchNode genNeighbour = bfs.getNodeTable().get(newperm);
-    int gameSize = (newperm.length()-1)/2;
 
+    // node was not found
     if (genNeighbour == null) {
-      // create a new node
+      // create a new node and set the state to it
       genNeighbour = new CheckersNode();
-
-      genNeighbour.setState(new CheckersState(gameSize, newperm));
-
+      genNeighbour.setState(new CheckersState(newperm));
       genNeighbour.setBFs(bfs);
+      
       //this is a new node, we should record which parent was the best for him
       genNeighbour.setCurrentParent(this);
 
       //calculate his costs
-      genNeighbour.calculateCosts(goal);
+      genNeighbour.calculateCosts();
 
       // save the new node to the node table
       bfs.getNodeTable().put(newperm, genNeighbour);
