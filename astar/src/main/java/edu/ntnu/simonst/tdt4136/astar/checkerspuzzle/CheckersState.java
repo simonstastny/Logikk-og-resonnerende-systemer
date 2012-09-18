@@ -121,8 +121,8 @@ public class CheckersState implements SearchState {
     String perm2 = b.getIdentifier().replace(red, '1').replace(space, '2').replace(black, '3');
 
     int cVal = 0;
-
-    for (int i = 0; i < perm1.length(); i++) {
+    
+    for (int i = 0; i < Math.max(perm1.length(),perm2.length()); i++) {
       cVal += Math.abs(perm1.charAt(i) - perm2.charAt(i));
     }
 

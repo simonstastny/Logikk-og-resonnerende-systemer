@@ -3,7 +3,6 @@ package edu.ntnu.simonst.tdt4136.astar.fractionpuzzle;
 import edu.ntnu.simonst.tdt4136.astar.Fringe;
 import edu.ntnu.simonst.tdt4136.astar.SearchNode;
 
-
 /**
  *
  * @author Simon Stastny
@@ -21,7 +20,10 @@ public class FractionNode extends SearchNode {
       costEstimate = Integer.MAX_VALUE;
     }
 
-    currentCost = 0;
+    // current cost is parent's cost + 1, while root has 0 current cost
+    if (getCurrentParent() != null) {
+      currentCost = 1 + getCurrentParent().getCurrentCost();
+    }
   }
 
   @Override
@@ -48,11 +50,11 @@ public class FractionNode extends SearchNode {
             genNeighbour = new FractionNode();
             genNeighbour.setState(new FractionState(newperm));
             genNeighbour.setBFs(bfs);
-            //calculate his costs
-            genNeighbour.calculateCosts();
-
             //this is a new node, we should record which parent was the best for him
             genNeighbour.setCurrentParent(this);
+            
+             //calculate his costs
+            genNeighbour.calculateCosts();
 
             // save the new node to the node table
             bfs.getNodeTable().put(newperm, genNeighbour);
