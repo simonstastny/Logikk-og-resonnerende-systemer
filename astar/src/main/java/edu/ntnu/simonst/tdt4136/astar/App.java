@@ -12,10 +12,12 @@ public class App {
 
   public static void main(String[] args) {
     // fraction puzzle search
+    System.out.println("Fraction Puzzle\n-----------------------");
     FractionPuzzle fractions = new FractionPuzzle();
     fractions.search();
 
     // checkers puzzle search
+    System.out.println("\n\nCheckers Puzzle\n-----------------------");
     CheckersPuzzle checkers = new CheckersPuzzle();
     checkers.search();
   }

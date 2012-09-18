@@ -54,8 +54,12 @@ public abstract class BestFirstSearch implements Runnable {
   
   // MAIN APPLICATION LOGIC
   public void search() {
+    // each search deserves own node table
+    this.nodeTable = new HashMap<String, SearchNode>();
+    
     // first node to be expanded is root
     SearchNode current = root;
+    current.calculateCosts();
 
     int runCounter = 0; //DBG
 
@@ -76,12 +80,11 @@ public abstract class BestFirstSearch implements Runnable {
     }
 
     // the solution was found, print information about solution state
-    System.out.print("run: " + runCounter);
-    System.out.println(" ----- WINNER: " + current.getState() + " is equal " + goal.getState());
+    System.out.println("Solution " + current.getState() + " equal to goal " + goal.getState() + " found in run " + runCounter);
 
     // if path reconstruction is enables, print the path
     if (pathReconstruction) {
-      System.out.println("PATH RECONSTRUCTION: ");
+      System.out.println("\n\nPath reconstruction fra " + root.getState().getIdentifier() + " til " + goal.getState().getIdentifier() + " (in reverse): \n");
       current.reconstructPath();
     }
   }
