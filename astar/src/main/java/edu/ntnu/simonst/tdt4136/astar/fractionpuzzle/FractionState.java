@@ -51,7 +51,19 @@ public class FractionState implements SearchState {
    * @return real value of fraction difference multiplied by both denominators
    */
   public int getDistance(FractionState a, FractionState b) {
-    return Math.abs(a.getNumerator() * b.getDenominator() - b.getNumerator() * a.getDenominator());
+    // this was teaching assistant's idea:
+    //  return Math.abs(a.getNumerator() * b.getDenominator() - b.getNumerator() * a.getDenominator());
+    
+    //this is my idea:
+    if (a.getNumerator() * b.getDenominator() - b.getNumerator() * a.getDenominator() == 0) {
+      return 0;
+    } else {
+      return (int) Math.round(Math.pow(Math.abs(a.getVal() - b.getVal()) + 1, 20));
+    }
+  }
+
+  private double getVal() {
+    return (double) getNumerator() / (double) getDenominator();
   }
 
   /**
