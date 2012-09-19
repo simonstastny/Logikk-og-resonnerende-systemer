@@ -56,24 +56,6 @@ public class CheckersNode extends SearchNode {
     return super.getChildren();
   }
 
-  @Override
-  public int compareTo(Object t) {
-    if (t instanceof CheckersNode) {
-      CheckersNode other = (CheckersNode) t;
-
-      if (other.getTotalCostEstimate() > this.getTotalCostEstimate()) {
-        return -1;
-      } else if (other.getTotalCostEstimate() < this.getTotalCostEstimate()) {
-        return 1;
-      } else {
-        return 0;
-      }
-
-    } else {
-      return 0;
-    }
-  }
-
   /**
    * Creates a new state, new node, links them and add is to the Fringe.
    * @param newperm permutation for a new state and node to be created and added to the fringe

@@ -64,6 +64,10 @@ public abstract class SearchNode implements Comparable{
   public int getCostEstimate() {
     return costEstimate;
   }
+  
+  public int getFinalCost() {
+    return getTotalCostEstimate();
+  }
 
   public int getTotalCostEstimate() {
     return getCurrentCost() + getCostEstimate();
@@ -104,6 +108,24 @@ public abstract class SearchNode implements Comparable{
 
     if (this.getCurrentParent() != null) {
       getCurrentParent().reconstructPath();
+    }
+  }
+  
+   @Override
+  public int compareTo(Object t) {
+    if (t instanceof SearchNode) {
+      SearchNode other = (SearchNode) t;
+
+      if (other.getTotalCostEstimate() > this.getTotalCostEstimate()) {
+        return -1;
+      } else if (other.getTotalCostEstimate() < this.getTotalCostEstimate()) {
+        return 1;
+      } else {
+        return 0;
+      }
+
+    } else {
+      return 0;
     }
   }
 }

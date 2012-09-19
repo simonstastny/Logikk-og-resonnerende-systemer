@@ -22,8 +22,13 @@ public class FractionNode extends SearchNode {
 
     // current cost is parent's cost + 1, while root has 0 current cost
     if (getCurrentParent() != null) {
-      currentCost = 1 + getCurrentParent().getCurrentCost();
+      currentCost = 1000000 + getCurrentParent().getCurrentCost();
     }
+  }
+
+  @Override
+  public int getFinalCost() {
+    return currentCost / 1000000;
   }
 
   @Override
@@ -77,19 +82,5 @@ public class FractionNode extends SearchNode {
     return super.getChildren();
   }
 
-  @Override
-  public int compareTo(Object t) {
-    if (t instanceof SearchNode) {
-      SearchNode other = (SearchNode) t;
-      if (other.getCostEstimate() < this.getCostEstimate()) {
-        return 1;
-      } else if (other.getCostEstimate() > this.getCostEstimate()) {
-        return -1;
-      } else {
-        return 0;
-      }
-    } else {
-      return 0;
-    }
-  }
+  
 }

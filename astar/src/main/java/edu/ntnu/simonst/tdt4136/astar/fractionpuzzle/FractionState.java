@@ -53,16 +53,21 @@ public class FractionState implements SearchState {
   public int getDistance(FractionState a, FractionState b) {
     // this was teaching assistant's idea:
     //  return Math.abs(a.getNumerator() * b.getDenominator() - b.getNumerator() * a.getDenominator());
+   
     
     //this is my idea:
     if (a.getNumerator() * b.getDenominator() - b.getNumerator() * a.getDenominator() == 0) {
       return 0;
     } else {
-      return (int) Math.round(Math.pow(Math.abs(a.getVal() - b.getVal()) + 1, 20));
+      //return (int) Math.round(Math.pow(Math.abs(a.getVal() - b.getVal())*10000000 + 1, 20));
+      // multiplyingwith constant
+      return (int) (Math.abs(a.getVal() - b.getVal())*10000000-10);
     }
+    
+    
   }
 
-  private double getVal() {
+  public double getVal() {
     return (double) getNumerator() / (double) getDenominator();
   }
 

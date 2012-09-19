@@ -82,7 +82,7 @@ public abstract class BestFirstSearch implements Runnable {
     }
 
     // the solution was found, print information about solution state
-    System.out.println("Solution " + current.getState() + " equal to goal " + goal.getState() + " found in run " + runCounter + ". Cost of solution is " + current.getCurrentCost() + ".");
+    System.out.println("Solution " + current.getState() + " equal to goal " + goal.getState() + " found in run " + runCounter + ". Cost of solution is " + current.getFinalCost() + ".");
 
     // if path reconstruction is enables, print the path
     if (pathReconstruction) {
