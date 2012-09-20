@@ -46,7 +46,7 @@ The initial state of the puzzle is state identified by permutation
  \frac{1234}{56789}
 \]
 
-\subsection{Description of a goal state}
+\subsection{Description of a goal state} \label{fracgoal}
 
 This puzzle involves finding fractions equal to fractions: 
 
@@ -56,9 +56,9 @@ This puzzle involves finding fractions equal to fractions:
 \]
 
 For example for the first fraction (\sfrac{1}{2}) the goal state would have
-permutation \texttt{796215384}, because following two fractions are equal:
-\[\frac{7692}{15384} = \frac{2^2 \times 3 \times 641}{2^2 \times 3 \times 641} =
-\frac{1}{2}\].
+permutation \texttt{729314586}, because following two fractions are equal:
+\[\frac{7293}{14586} = \frac{2^2 \times 3 \times 641}{2^3 \times 3 \times 641} =
+\frac{1}{2}\]
 
 Similarily for other fractions there exist other permutations of
 \texttt{123456789} which represent fractions equal to them respectively.
@@ -71,7 +71,7 @@ optimal way and thus we would like to get to the goal taking as few steps as
 possible.
 
 For this reason, the arc cost for transition from one state to another is fixed
-value 1 (in the inner code 1 000 000, because of precision problems related to
+value 1 (in the inner code 100 000 000, because of precision problems related to
 heuristic function), hence the total cost of path from root to goal is equal to
 number of steps we have taken.
 
@@ -95,9 +95,9 @@ the order and where no difference would be equal to 0, the smallest difference
 would be equal to 1 and big differences would be map to big numbers.
 
 Our solution counts the double value of difference of those two fractions,
-multiplies the value by 1 000 000 and subtracts 10. This results into the
+multiplies the value by 100 000 000 and subtracts 10. This results into the
 smallest difference being assigned estimate of 1, and bigger differences scaled
-up to somewhere below nearly 800 000.
+up to somewhere below nearly 80 000 000.
 
 Those big numbers are the reason why the arc costs are multiplied by 1 000 000.
 
@@ -107,7 +107,7 @@ Successor nodes are generated from current node with a simple switch operator.
 This switch operator takes the permutation of the node's state (which is a
 permutation of digits from 1 to 9) and switches two digits to make a new state.
 Since the first digit can be switched with 8 others to make a new permutations,
-the second digit with 7 others (because switching with the first permutation
+the second digit with 7 others (because switching with the first digit
 was done already), third one with 6 others\ldots, this generates 36
 (8+7+\ldots+1) new permutations, and each one of them is assigned to a successor
 node.
@@ -119,8 +119,9 @@ the next turn.
 
 \subsection{Overview description of a solution}
 
-This puzzle is searching for solutions fo 8 different fractions. Those solutions
-are listed in the subsections below.
+This puzzle is searching for solutions for 8 different fractions, described in
+\ref{fracgoal}.
+Those solutions are listed in the subsections below.
 
 \subsubsection{Solution for \sfrac{1}{2}}
 
@@ -128,8 +129,8 @@ For the first fraction (\sfrac{1}{2}) the solution permutation 729314586 was
 found. This is a solution, because the fraction it represents is equal to
 goal-state's fraction.
 
-\[\frac{7692}{15384} = \frac{2^2 \times 3 \times 641}{2^2 \times 3 \times 641} =
-\frac{1}{2}\].
+\[\frac{7293}{14586} = \frac{2^2 \times 3 \times 641}{2^3 \times 3 \times 641} =
+\frac{1}{2}\]
 
 This solution was found in just 5 steps listed here.
 
@@ -193,7 +194,7 @@ goal-state's fraction.
 \[\frac{9237}{46185} = \frac{3 \times 3079}{3 \times 5 \times 3079}
 = \frac{1}{5}\].
 
-This solution was found in just 6 steps listed here.
+This solution was found in just 4 steps listed here.
 
 \begin{itemize}
   \item \textbf{root} state: 1234/56789 (0.02172956) 
@@ -203,17 +204,109 @@ This solution was found in just 6 steps listed here.
   \item \textbf{goal} state: 9237/46185 (0.2)
 \end{itemize}
 
-\section{Checkers puzzle}
+\subsubsection{Solution for \sfrac{1}{6}}
 
+For the first fraction (\sfrac{1}{6}) the solution permutation 294317658 was
+found. This is a solution, because the fraction it represents is equal to
+goal-state's fraction.
+
+\[\frac{2943}{17658} = \frac{3^3 \times 109}{2 \times 3^4 \times 109}
+= \frac{1}{6}\].
+
+This solution was found in just 6 steps listed here.
+
+\begin{itemize}
+  \item \textbf{root} state: 1234/56789 (0.02172956) 
+  \item state: 2134/56789 (0.0375777)
+  \item state: 2534/16789 (0.150932158)
+  \item state: 2934/16785 (0.174798928)
+  \item state: 2934/17685 (0.165903308)
+  \item state: 2934/17658 (0.166156983)
+  \item \textbf{goal} state: 2943/17658 (0.166666667)
+\end{itemize}
+
+\subsubsection{Solution for \sfrac{1}{7}}
+
+For the first fraction (\sfrac{1}{7}) the solution permutation 761453298 was
+found. This is a solution, because the fraction it represents is equal to
+goal-state's fraction.
+
+\[\frac{7614}{53298} = \frac{2 \times 3^4 \times 47}{2 \times 3^4 \times 7
+\times 47} = \frac{1}{7}\].
+
+This solution was found in just 5 steps listed here.
+
+\begin{itemize}
+  \item \textbf{root} state: 1234/56789 (0.02172956) 
+  \item state: 7234/56189 (0.12874406)
+  \item state: 7634/52189 (0.146276035)
+  \item state: 7624/53189 (0.143337908)
+  \item state: 7624/53198 (0.143313658)
+  \item \textbf{goal} state: 7614/53298 (0.142857143)
+\end{itemize}
+
+\subsubsection{Solution for \sfrac{1}{8}}
+
+For the first fraction (\sfrac{1}{8}) the solution permutation 817465392 was
+found. This is a solution, because the fraction it represents is equal to
+goal-state's fraction.
+
+\[\frac{8174}{65392} = \frac{2 \times 61 \times 67}{2^4 \times 61
+\times 67} = \frac{1}{8}\].
+
+This solution was found in just 5 steps listed here.
+
+\begin{itemize}
+  \item \textbf{root} state: 1234/56789 (0.02172956) 
+  \item state: 8234/56719 (0.145171812)
+  \item state: 8234/65719 (0.125291012)
+  \item state: 8134/65729 (0.123750552)
+  \item state: 8134/65792 (0.123632053)
+  \item \textbf{goal} state: 8174/65392 (0.125)
+\end{itemize}
+
+
+\subsubsection{Solution for \sfrac{1}{9}}
+
+For the first fraction (\sfrac{1}{9}) the solution permutation 638157429 was
+found. This is a solution, because the fraction it represents is equal to
+goal-state's fraction.
+
+\[\frac{6381}{57429} = \frac{3^2 \times 709}{3^4 \times 709} = \frac{1}{9}\].
+
+This solution was found in just 5 steps listed here.
+
+\begin{itemize}
+  \item \textbf{root} state: 1234/56789 (0.02172956) 
+  \item state: 6234/51789 (0.120373052)
+  \item state: 6234/57189 (0.109006977)
+  \item state: 6231/57489 (0.108385952)
+  \item state: 6831/57429 (0.118946874)
+  \item \textbf{goal} state: 6381/57429 (0.111111111)
+\end{itemize}
+
+\section{Checkers puzzle}
 1. The initial state of the puzzle.
+initial state: BBB AAA, respective BBBBBB AAAAAA, BBBBBBBBBBBB AAAAAAAAAAAA
+
 2. A general description of a goal state.
+goal state: AAA BBB, respective AAAAAA BBBBBB, AAAAAAAAAAAA BBBBBBBBBBBB
+
 3. The method of assessing arc costs. It may be a xed value or a more complex procedure.
+arc costs - fixed value 1
+
 4. A clear, concise description (using mathematical expressions and text) of the heuristic function (h)
 used to solve the puzzle.
+heuristic function see CheckersState.getDistance(a,b)
+
 5. A thorough description of the procedure used to generate successor states when expanding a node.
+see CheckersNode.getChildren()
+
 6. An overview description of a solution (i.e. path from start to goal) found by A*. The sequence of search
 states from the start to the goal node must be presented along with a brief summary (in Norwegian or
 English) of the main state-to-state transitions within sequence.
+
+see output from program..
 
 
 \end{document}
