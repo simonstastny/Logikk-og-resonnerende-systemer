@@ -4,7 +4,7 @@ package edu.ntnu.simonst.tdt4136.astar;
  *
  * @author Simon Stastny
  */
-public abstract class SearchNode implements Comparable{
+public abstract class SearchNode implements Comparable {
 
   // delegate to BFS instance, which hold i.e. node-map, goal-node and other stuff
   protected BestFirstSearch bfs;
@@ -12,7 +12,6 @@ public abstract class SearchNode implements Comparable{
   public void setBFs(BestFirstSearch bfs) {
     this.bfs = bfs;
   }
-  
   // search state for this node
   protected SearchState state;
 
@@ -27,13 +26,13 @@ public abstract class SearchNode implements Comparable{
 
   // is open closed or open (i.e. visited)
   protected boolean open = true;
-  
+
   /**
    * Method for resolving whether this node is a solution.
    * @return true if node is solution
    */
   public abstract boolean isSolution();
-  
+
   /**
    * Returns whether this node is open or closed.
    * @return true if node is open
@@ -41,7 +40,7 @@ public abstract class SearchNode implements Comparable{
   public boolean isOpen() {
     return open;
   }
-  
+
   /**
    * closes node (after expansion)
    */
@@ -53,20 +52,28 @@ public abstract class SearchNode implements Comparable{
    * calculate cost estimate from this node to goal state
    */
   public abstract void calculateCosts();
-
   protected int costEstimate;
+
   protected int currentCost = 0;
 
   public int getCurrentCost() {
     return currentCost;
   }
-  
+
   public int getCostEstimate() {
     return costEstimate;
   }
-  
-  public int getFinalCost() {
+
+  public int getPrintCostTotal() {
     return getTotalCostEstimate();
+  }
+
+  public int getPrintCostEstimate() {
+    return getCostEstimate();
+  }
+
+  public int getPrintCurrentCost() {
+    return getCurrentCost();
   }
 
   public int getTotalCostEstimate() {
@@ -101,7 +108,7 @@ public abstract class SearchNode implements Comparable{
    * Method for printing out a reconstruction of the path from root to goal node.
    */
   public void reconstructPath() {
-    System.out.println("current cost: " + this.getCurrentCost());
+    System.out.println("current cost: " + this.getPrintCurrentCost());
     System.out.println("cost estimate: " + this.getCostEstimate());
     System.out.println("state: " + this.getState().toString());
     System.out.println("----------------------------------------------");
@@ -110,8 +117,8 @@ public abstract class SearchNode implements Comparable{
       getCurrentParent().reconstructPath();
     }
   }
-  
-   @Override
+
+  @Override
   public int compareTo(Object t) {
     if (t instanceof SearchNode) {
       SearchNode other = (SearchNode) t;

@@ -8,6 +8,8 @@ import edu.ntnu.simonst.tdt4136.astar.SearchNode;
  * @author Simon Stastny
  */
 public class FractionNode extends SearchNode {
+  
+  private static final int BIG_NUMBER = 1000000;
 
   @Override
   public void calculateCosts() {
@@ -22,13 +24,13 @@ public class FractionNode extends SearchNode {
 
     // current cost is parent's cost + 1, while root has 0 current cost
     if (getCurrentParent() != null) {
-      currentCost = 1000000 + getCurrentParent().getCurrentCost();
+      currentCost = BIG_NUMBER + getCurrentParent().getCurrentCost();
     }
   }
 
   @Override
-  public int getFinalCost() {
-    return currentCost / 1000000;
+  public int getPrintCostTotal() {
+    return currentCost / BIG_NUMBER;
   }
 
   @Override

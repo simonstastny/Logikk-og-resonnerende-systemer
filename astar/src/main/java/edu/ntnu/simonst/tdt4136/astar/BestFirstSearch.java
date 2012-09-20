@@ -16,14 +16,13 @@ public abstract class BestFirstSearch implements Runnable {
   public void setPathReconstruction(boolean pathReconstruction) {
     this.pathReconstruction = pathReconstruction;
   }
-  
   // A*
   protected Map<String, SearchNode> nodeTable = new HashMap<String, SearchNode>();
 
   protected Fringe agenda = new Fringe();
 
   protected Fringe closed = new Fringe(); //FIXME do I even use this?
-  
+
   protected SearchNode root;
 
   protected SearchNode goal;
@@ -51,14 +50,14 @@ public abstract class BestFirstSearch implements Runnable {
   public SearchNode getGoal() {
     return goal;
   }
-  
+
   // MAIN APPLICATION LOGIC
   public void search() {
     // each search deserves own node table
     this.nodeTable = new HashMap<String, SearchNode>();
     this.agenda = new Fringe();
     this.closed = new Fringe();
-    
+
     // first node to be expanded is root
     SearchNode current = root;
     current.calculateCosts();
@@ -82,7 +81,7 @@ public abstract class BestFirstSearch implements Runnable {
     }
 
     // the solution was found, print information about solution state
-    System.out.println("Solution " + current.getState() + " equal to goal " + goal.getState() + " found in run " + runCounter + ". Cost of solution is " + current.getFinalCost() + ".");
+    System.out.println("Solution " + current.getState() + " equal to goal " + goal.getState() + " found in run " + runCounter + ". Cost of solution is " + current.getPrintCostTotal() + ".");
 
     // if path reconstruction is enables, print the path
     if (pathReconstruction) {
