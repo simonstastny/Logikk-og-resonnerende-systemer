@@ -66,25 +66,142 @@ Similarily for other fractions there exist other permutations of
 \subsection{Method of assessing arc costs}
 Since we are not really interested in the path to the goal node as much as we
 are interested in the goal-node's state itself, we are not concerned about cost
-of the solution (lenght of the path).
+of the solution (lenght of the path). However, we are still trying to work in an
+optimal way and thus we would like to get to the goal taking as few steps as
+possible.
 
 For this reason, the arc cost for transition from one state to another is fixed
-value 1.
+value 1 (in the inner code 1 000 000, because of precision problems related to
+heuristic function), hence the total cost of path from root to goal is equal to
+number of steps we have taken.
 
 \subsection{Heuristic function description}
 
 As long as states are representing fractions, i.e. numbers, the heuristic
+for estimating cost from current state to goal state could be something so
+simple as mathematical difference of those two fractions.
 
-A clear, concise description (using mathematical expressions and text) of the
-heuristic function (h) used to solve the puzzle.
+Since all the fractions possible in this puzzle have values greater or equal to
+0.0124943046625829 and lesser of equal to 0.8, the mathematical difference of
+any two of them would be a double value somewhere between 0 and 1.
+
+\[
+ \forall x \in possible fractions, \frac{1234}{98765} \leq x \leq
+ \frac{9876}{12345}
+\]
+
+We need to map those differences to cardinal numbeers in a way which preserves
+the order and where no difference would be equal to 0, the smallest difference
+would be equal to 1 and big differences would be map to big numbers.
+
+Our solution counts the double value of difference of those two fractions,
+multiplies the value by 1 000 000 and subtracts 10. This results into the
+smallest difference being assigned estimate of 1, and bigger differences scaled
+up to somewhere below nearly 800 000.
+
+Those big numbers are the reason why the arc costs are multiplied by 1 000 000.
+
 \subsection{Successor generation procedure}
-A thorough description of the procedure used to generate successor states when
-expanding a node.
+
+Successor nodes are generated from current node with a simple switch operator.
+This switch operator takes the permutation of the node's state (which is a
+permutation of digits from 1 to 9) and switches two digits to make a new state.
+Since the first digit can be switched with 8 others to make a new permutations,
+the second digit with 7 others (because switching with the first permutation
+was done already), third one with 6 others\ldots, this generates 36
+(8+7+\ldots+1) new permutations, and each one of them is assigned to a successor
+node.
+
+This leaves us with 36 successor nodes to each node. At least one of those
+successor nodes is already closed (because it is current node's parent). We
+evaluate the remaining nodes' cost estimates and decide which node to expand in
+the next turn.
+
 \subsection{Overview description of a solution}
-An overview description of a solution (i.e. path from start to goal) found by
-A*. The sequence of search states from the start to the goal node must be
-presented along with a brief summary (in Norwegian or English) of the main
-state-to-state transitions within sequence.
+
+This puzzle is searching for solutions fo 8 different fractions. Those solutions
+are listed in the subsections below.
+
+\subsubsection{Solution for \sfrac{1}{2}}
+
+For the first fraction (\sfrac{1}{2}) the solution permutation 729314586 was
+found. This is a solution, because the fraction it represents is equal to
+goal-state's fraction.
+
+\[\frac{7692}{15384} = \frac{2^2 \times 3 \times 641}{2^2 \times 3 \times 641} =
+\frac{1}{2}\].
+
+This solution was found in just 5 steps listed here.
+
+\begin{itemize}
+  \item \textbf{root} state: 1234/56789 (0.02172956) 
+  \item state: 5234/16789 (0.311751742)
+  \item state: 7234/16589 (0.436072096)
+  \item state: 7294/16583 (0.439848037)
+  \item state: 7294/13586 (0.536876196)
+  \item \textbf{goal} state: 7293/14586 (0.5)
+\end{itemize}
+
+\subsubsection{Solution for \sfrac{1}{3}}
+
+For the first fraction (\sfrac{1}{3}) the solution permutation 582317469 was
+found. This is a solution, because the fraction it represents is equal to
+goal-state's fraction.
+
+\[\frac{5823}{17469} = \frac{3^2 \times 647}{3^3 \times 647} =
+\frac{1}{3}\].
+
+This solution was found in just 6 steps listed here.
+
+\begin{itemize}
+  \item \textbf{root} state: 1234/56789 (0.02172956) 
+  \item state: 5234/16789 (0.311751742)
+  \item state: 5234/17689 (0.295890101)
+  \item state: 5834/17629 (0.330931987)
+  \item state: 5834/17269 (0.337830795)
+  \item state: 5824/17369 (0.335310035)
+  \item \textbf{goal} state: 5823/17469 (0.333333333)
+\end{itemize}
+
+\subsubsection{Solution for \sfrac{1}{4}}
+
+For the first fraction (\sfrac{1}{4}) the solution permutation 579623184 was
+found. This is a solution, because the fraction it represents is equal to
+goal-state's fraction.
+
+\[\frac{5796}{23184} = \frac{2^2 \times 3^2 \times 7 \times 23}{2^4 \times 3^2 \times 7 \times 23}
+= \frac{1}{4}\].
+
+This solution was found in just 6 steps listed here.
+
+\begin{itemize}
+  \item \textbf{root} state: 1234/56789 (0.02172956) 
+  \item state: 1534/26789 (0.057262309)
+  \item state: 7534/26189 (0.287678033)
+  \item state: 5734/26189 (0.218946886)
+  \item state: 5736/24189 (0.237132581)
+  \item state: 5796/24183 (0.239672497)
+  \item \textbf{goal} state: 5796/23184 (0.25)
+\end{itemize}
+
+\subsubsection{Solution for \sfrac{1}{5}}
+
+For the first fraction (\sfrac{1}{5}) the solution permutation 9237/46185 was
+found. This is a solution, because the fraction it represents is equal to
+goal-state's fraction.
+
+\[\frac{9237}{46185} = \frac{3 \times 3079}{3 \times 5 \times 3079}
+= \frac{1}{5}\].
+
+This solution was found in just 6 steps listed here.
+
+\begin{itemize}
+  \item \textbf{root} state: 1234/56789 (0.02172956) 
+  \item state: 9234/56781 (0.162624822)
+  \item state: 9235/46781 (0.197409205)
+  \item state: 9235/46187 (0.199948037)
+  \item \textbf{goal} state: 9237/46185 (0.2)
+\end{itemize}
 
 \section{Checkers puzzle}
 

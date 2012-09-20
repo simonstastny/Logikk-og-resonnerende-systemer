@@ -10,9 +10,7 @@ public class CheckersState implements SearchState {
 
   // colors for pegs in the game
   public static final char red = 'A';
-
   public static final char black = 'B';
-
   public static final char space = ' ';
 
   protected String permutation;
@@ -87,7 +85,7 @@ public class CheckersState implements SearchState {
   }
 
   /**
-   * Checks whether permutations is valid for given size of game.
+   * Checks whether permutations is valid for given size of game. (i.e. if there is right number of black checkers, red checkers and one space)
    * @param permutation permutations to be checked
    * @param gameSize size of game
    * @return true if permutation is valid for given size of game
@@ -122,22 +120,27 @@ public class CheckersState implements SearchState {
 
     int cVal = 0;
     
+    // iterate over each position in permutations and differ characters at those positions
     for (int i = 0; i < Math.max(perm1.length(),perm2.length()); i++) {
+      // add difference to sum
       cVal += Math.abs(perm1.charAt(i) - perm2.charAt(i));
     }
 
+    // divide it (its always multiple of 2)
     return cVal / 2;
   }
 
   public static CheckersState getGoal(int size) {
     StringBuilder sb = new StringBuilder();
-
+    //root starts with 3 black pegs
     for (int i = 0; i < size; i++) {
       sb.append(CheckersState.black);
     }
 
+    //has one space in the middle
     sb.append(CheckersState.space);
 
+    //and ends with 3 red pegs
     for (int i = 0; i < size; i++) {
       sb.append(CheckersState.red);
     }
@@ -148,12 +151,15 @@ public class CheckersState implements SearchState {
   public static CheckersState getRoot(int size) {
     StringBuilder sb = new StringBuilder();
 
+    //root starts with 3 red pegs
     for (int i = 0; i < size; i++) {
       sb.append(CheckersState.red);
     }
 
+    //has one space in the middle
     sb.append(CheckersState.space);
 
+    //and ends with 3 black pegs
     for (int i = 0; i < size; i++) {
       sb.append(CheckersState.black);
     }

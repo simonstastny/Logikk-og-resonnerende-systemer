@@ -13,7 +13,7 @@ public class FractionPuzzle extends BestFirstSearch {
   @Override
   public void search() {
     // we do not care about path to solution
-    setPathReconstruction(false);
+    setPathReconstruction(true);
     
     // add all goal-states (fractions we want to find)
     List<FractionState> goals = new ArrayList<FractionState>();

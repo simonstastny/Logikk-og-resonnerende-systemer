@@ -9,7 +9,7 @@ import edu.ntnu.simonst.tdt4136.astar.SearchNode;
  */
 public class FractionNode extends SearchNode {
   
-  private static final int BIG_NUMBER = 1000000;
+  protected static final int BIG_NUMBER = 100000000;
 
   @Override
   public void calculateCosts() {

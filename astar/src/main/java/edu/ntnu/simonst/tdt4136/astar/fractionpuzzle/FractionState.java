@@ -45,7 +45,7 @@ public class FractionState implements SearchState {
   }
 
   /**
-   * Counts difference between between fraction A and B this way: where A = C/D amd B = E/F, the distance is absolute value of expression C*F-E*D (i.e. the real value of fraction difference multiplied by F*D)
+   * Counts difference between between fraction A and B this way: where A = C/D and B = E/F, the distance is absolute value of expression C*F-E*D (i.e. the real value of fraction difference multiplied by F*D)
    * @param a one fraction
    * @param b other fraction
    * @return real value of fraction difference multiplied by both denominators
@@ -53,21 +53,19 @@ public class FractionState implements SearchState {
   public int getDistance(FractionState a, FractionState b) {
     // this was teaching assistant's idea:
     //  return Math.abs(a.getNumerator() * b.getDenominator() - b.getNumerator() * a.getDenominator());
-   
+    // cannot work, does not reflect real distance
     
-    //this is my idea:
+    //this is our idea:    
     if (a.getNumerator() * b.getDenominator() - b.getNumerator() * a.getDenominator() == 0) {
+      // if we reached the goal-node, the estimate should be alway be 0
       return 0;
     } else {
-      //return (int) Math.round(Math.pow(Math.abs(a.getVal() - b.getVal())*10000000 + 1, 20));
-      // multiplyingwith constant
-      return (int) (Math.abs(a.getVal() - b.getVal())*10000000-10);
-    }
-    
-    
+      // otherwise the estimate is real-value difference multiplied by big number (e.g. 1 000 000)
+      return (int) (Math.abs(a.getVal() - b.getVal())*FractionNode.BIG_NUMBER-10); //nico
+    }    
   }
 
-  public double getVal() {
+  private double getVal() {
     return (double) getNumerator() / (double) getDenominator();
   }
 
@@ -76,7 +74,7 @@ public class FractionState implements SearchState {
    * @param orig original permutation
    * @param a index of first swapped character
    * @param b index of second swapped character
-   * @return original permutation with swapped charactes at positions a and b
+   * @return original permutation with swapped characters at positions a and b
    */
   public String swap(String orig, int a, int b) {
     StringBuilder sb = new StringBuilder(orig);
@@ -117,6 +115,10 @@ public class FractionState implements SearchState {
     this.denominator = denominator;
   }
 
+  /**
+   *  identifier is permutation of this state, e.g. for a fraction 1234/56789 the permutation is 123456789
+   * @return permutation of this state
+   */
   @Override
   public String getIdentifier() {
     StringBuilder sb = new StringBuilder();
