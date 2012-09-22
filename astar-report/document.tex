@@ -17,15 +17,15 @@
 
 \section{General A* algorithm}
 
-We decided to create own own implementation of A* algorithm for better learning
-outome. Our general A* algorithm implementation is found in the package
-\texttt{edu.ntnu.simonst.tdt4136.astar} and contains following classes:
+We decided to create our own implementation of A* algorithm for better learning
+outome. Our general A* algorithm implementation can be found in the package
+\texttt{edu.ntnu.simonst.tdt4136.astar} and contains the following classes:
 
 \begin{itemize}
   \item Class \texttt{BestFirstSearch} with general A* algorithm implementation
-  \item Class \texttt{SearchNode} for general search-node used in the algotithm
+  \item Class \texttt{SearchNode} for general search-node used in the algorithm
   \item Class \texttt{SearchState} for general search-state used in the
-  algotithm
+  algorithm
   \item Class \texttt{Fringe} used to store nodes in agenda (list of unexpanded
   nodes)
 \end{itemize} 
@@ -48,7 +48,7 @@ The initial state of the puzzle is state identified by permutation
 
 \subsection{Description of a goal state} \label{fracgoal}
 
-This puzzle involves finding fractions equal to fractions: 
+This puzzle involves finding fractions equivalent to the following fractions: 
 
 \[
  \frac{1}{2}\quad\frac{1}{3}\quad\frac{1}{4}\quad\frac{1}{5}\quad\frac{1}{6}\quad\frac{1}{7}\quad
@@ -65,15 +65,15 @@ Similarily for other fractions there exist other permutations of
 
 \subsection{Method of assessing arc costs}
 Since we are not really interested in the path to the goal node as much as we
-are interested in the goal-node's state itself, we are not concerned about cost
-of the solution (lenght of the path). However, we are still trying to work in an
-optimal way and thus we would like to get to the goal taking as few steps as
+are interested in the goal-node's state itself, we are not concerned about
+the cost of the solution (lenght of the path). However, we are still trying to
+work in an optimal way and thus we would like to get to the goal taking as few steps as
 possible.
 
 For this reason, the arc cost for transition from one state to another is fixed
 value 1 (in the inner code 100 000 000, because of precision problems related to
-heuristic function), hence the total cost of path from root to goal is equal to
-number of steps we have taken.
+our heuristic function), hence the total cost of path from root to goal is equal
+to number of steps we have taken.
 
 \subsection{Heuristic function description}
 
@@ -90,16 +90,28 @@ any two of them would be a double value somewhere between 0 and 1.
  \frac{9876}{12345}
 \]
 
-We need to map those differences to cardinal numbeers in a way which preserves
+We need to map those differences to cardinal numbers in a way that preserves
 the order and where no difference would be equal to 0, the smallest difference
-would be equal to 1 and big differences would be map to big numbers.
+would be equal to 1 and big differences would be mapped to big numbers.
 
-Our solution counts the double value of difference of those two fractions,
-multiplies the value by 100 000 000 and subtracts 10. This results into the
-smallest difference being assigned estimate of 1, and bigger differences scaled
-up to somewhere below nearly 80 000 000.
+Our solution calculates the difference of these two fractions (as a
+\texttt{double}), multiplies the value by 100 000 000, takes the integer part of
+this new value and subtracts 10.
+This results into the smallest difference being assigned to an estimation of 1,
+and bigger differences scaled up to somewhere below nearly 800 000 000.
 
-Those big numbers are the reason why the arc costs are multiplied by 1 000 000.
+Those big numbers are the reason why the arc costs are multiplied by 100 000
+000.
+We know that to get from the initial state (\texttt{123456789}) to any
+other state, we need less than 8 permutations. Then we considered the fact that the
+bigger difference that we can get from our method \texttt{getDistance(fraction
+a, fraction b)} is around 800 000 000. So we decided to map these two variables
+together: 1 permutation costs 100 000 000.
+Our heuristic function is thus based on this: we consider that the bigger the
+mathematical difference between the fraction and the goal is, the more
+permutations we will have to make to reach our goal.
+This is naturally not always true, but it is an estimation that we considered
+acceptable.
 
 \subsection{Successor generation procedure}
 
@@ -113,7 +125,7 @@ was done already), third one with 6 others\ldots, this generates 36
 node.
 
 This leaves us with 36 successor nodes to each node. At least one of those
-successor nodes is already closed (because it is current node's parent). We
+successor nodes is already closed (because it is the current node's parent). We
 evaluate the remaining nodes' cost estimates and decide which node to expand in
 the next turn.
 
@@ -123,33 +135,49 @@ This puzzle is searching for solutions for 8 different fractions, described in
 \ref{fracgoal}.
 Those solutions are listed in the subsections below.
 
-\subsubsection{Solution for \sfrac{1}{2}}
+\subsubsection{Detailed solution for \sfrac{1}{2}}
 
 For the first fraction (\sfrac{1}{2}) the solution permutation 729314586 was
 found. This is a solution, because the fraction it represents is equal to
 goal-state's fraction.
 
-\[\frac{7293}{14586} = \frac{2^2 \times 3 \times 641}{2^3 \times 3 \times 641} =
+\[\frac{7293}{14586} = \frac{1 \times 7293}{2 \times 7293} =
 \frac{1}{2}\]
 
 This solution was found in just 5 steps listed here.
 
 \begin{itemize}
-  \item \textbf{root} state: 1234/56789 (0.02172956) 
+  \item \textbf{root} state: 1234/56789 (0.02172956)
+  We expand the root node to create 36 children.
+  Switching 1 and 5 seems to be the best solution (the estimated cost from
+  that state to the solution is 47 827 033).
   \item state: 5234/16789 (0.311751742)
+  We expand this node.
+  Switching 5 and 7 seems to be the best solution (the estimated cost from
+  that state to the solution is 18 824 815).
   \item state: 7234/16589 (0.436072096)
+  We expand this node.
+  Switching 3 and 9 seems to be the best solution (the estimated cost from
+  that state to the solution is 6 392 780).
   \item state: 7294/16583 (0.439848037)
+  We expand this node.
+  Switching 6 and 3 seems to be the best solution (the estimated cost from
+  that state to the solution is 6 015 186).
   \item state: 7294/13586 (0.536876196)
+  We expand this node.
+  Switching 4 and 3 seems to be the best solution (the estimated cost from
+  that state to the solution is 3 687 609).
   \item \textbf{goal} state: 7293/14586 (0.5)
+  We reached our goal!
 \end{itemize}
 
 \subsubsection{Solution for \sfrac{1}{3}}
 
-For the first fraction (\sfrac{1}{3}) the solution permutation 582317469 was
+For the fraction \sfrac{1}{3}, the solution permutation 582317469 was
 found. This is a solution, because the fraction it represents is equal to
 goal-state's fraction.
 
-\[\frac{5823}{17469} = \frac{3^2 \times 647}{3^3 \times 647} =
+\[\frac{5823}{17469} = \frac{1 \times 5823}{3 \times 5823} =
 \frac{1}{3}\].
 
 This solution was found in just 6 steps listed here.
@@ -166,11 +194,11 @@ This solution was found in just 6 steps listed here.
 
 \subsubsection{Solution for \sfrac{1}{4}}
 
-For the first fraction (\sfrac{1}{4}) the solution permutation 579623184 was
+For the fraction \sfrac{1}{4}, the solution permutation 579623184 was
 found. This is a solution, because the fraction it represents is equal to
 goal-state's fraction.
 
-\[\frac{5796}{23184} = \frac{2^2 \times 3^2 \times 7 \times 23}{2^4 \times 3^2 \times 7 \times 23}
+\[\frac{5796}{23184} = \frac{1 \times 5796}{4 \times 5796}
 = \frac{1}{4}\].
 
 This solution was found in just 6 steps listed here.
@@ -187,11 +215,11 @@ This solution was found in just 6 steps listed here.
 
 \subsubsection{Solution for \sfrac{1}{5}}
 
-For the first fraction (\sfrac{1}{5}) the solution permutation 9237/46185 was
+For the fraction \sfrac{1}{5}, the solution permutation 9237/46185 was
 found. This is a solution, because the fraction it represents is equal to
 goal-state's fraction.
 
-\[\frac{9237}{46185} = \frac{3 \times 3079}{3 \times 5 \times 3079}
+\[\frac{9237}{46185} = \frac{1 \times 9237}{5 \times 9237}
 = \frac{1}{5}\].
 
 This solution was found in just 4 steps listed here.
@@ -206,11 +234,11 @@ This solution was found in just 4 steps listed here.
 
 \subsubsection{Solution for \sfrac{1}{6}}
 
-For the first fraction (\sfrac{1}{6}) the solution permutation 294317658 was
+For the fraction \sfrac{1}{6}, the solution permutation 294317658 was
 found. This is a solution, because the fraction it represents is equal to
 goal-state's fraction.
 
-\[\frac{2943}{17658} = \frac{3^3 \times 109}{2 \times 3^4 \times 109}
+\[\frac{2943}{17658} = \frac{1 \times 2943}{6 \times 2943}
 = \frac{1}{6}\].
 
 This solution was found in just 6 steps listed here.
@@ -227,12 +255,11 @@ This solution was found in just 6 steps listed here.
 
 \subsubsection{Solution for \sfrac{1}{7}}
 
-For the first fraction (\sfrac{1}{7}) the solution permutation 761453298 was
+For the fraction \sfrac{1}{7}, the solution permutation 761453298 was
 found. This is a solution, because the fraction it represents is equal to
 goal-state's fraction.
 
-\[\frac{7614}{53298} = \frac{2 \times 3^4 \times 47}{2 \times 3^4 \times 7
-\times 47} = \frac{1}{7}\].
+\[\frac{7614}{53298} = \frac{1 \times 7614}{7 \times 7614} = \frac{1}{7}\].
 
 This solution was found in just 5 steps listed here.
 
@@ -247,12 +274,11 @@ This solution was found in just 5 steps listed here.
 
 \subsubsection{Solution for \sfrac{1}{8}}
 
-For the first fraction (\sfrac{1}{8}) the solution permutation 817465392 was
+For the fraction \sfrac{1}{8}, the solution permutation 817465392 was
 found. This is a solution, because the fraction it represents is equal to
 goal-state's fraction.
 
-\[\frac{8174}{65392} = \frac{2 \times 61 \times 67}{2^4 \times 61
-\times 67} = \frac{1}{8}\].
+\[\frac{8174}{65392} = \frac{1 \times 8174}{8 \times 8174} = \frac{1}{8}\].
 
 This solution was found in just 5 steps listed here.
 
@@ -268,11 +294,11 @@ This solution was found in just 5 steps listed here.
 
 \subsubsection{Solution for \sfrac{1}{9}}
 
-For the first fraction (\sfrac{1}{9}) the solution permutation 638157429 was
+For the last fraction (\sfrac{1}{9}) the solution permutation 638157429 was
 found. This is a solution, because the fraction it represents is equal to
 goal-state's fraction.
 
-\[\frac{6381}{57429} = \frac{3^2 \times 709}{3^4 \times 709} = \frac{1}{9}\].
+\[\frac{6381}{57429} = \frac{1 \times 6381}{9 \times 6381} = \frac{1}{9}\].
 
 This solution was found in just 5 steps listed here.
 
@@ -285,28 +311,119 @@ This solution was found in just 5 steps listed here.
   \item \textbf{goal} state: 6381/57429 (0.111111111)
 \end{itemize}
 
+
 \section{Checkers puzzle}
-1. The initial state of the puzzle.
-initial state: BBB AAA, respective BBBBBB AAAAAA, BBBBBBBBBBBB AAAAAAAAAAAA
 
-2. A general description of a goal state.
-goal state: AAA BBB, respective AAAAAA BBBBBB, AAAAAAAAAAAA BBBBBBBBBBBB
+\subsection{Initial state of the puzzle}
+The initial states of this puzzle are :
+\begin{itemize}
+  \item \texttt{[BBB AAA]} for a game of 3 versus 3 checkers
+  \item \texttt{[BBBBBB AAAAAA]} for a game of 6 versus 6 checkers
+  \item \texttt{[BBBBBBBBBBBB AAAAAAAAAAAA]} for a game of 12 versus 12 checkers
+\end{itemize}
 
-3. The method of assessing arc costs. It may be a xed value or a more complex procedure.
-arc costs - fixed value 1
+We named \texttt{A} the black checkers and \texttt{B} the red ones.
 
-4. A clear, concise description (using mathematical expressions and text) of the heuristic function (h)
-used to solve the puzzle.
-heuristic function see CheckersState.getDistance(a,b)
+\subsection{Description of a goal state}
+The goal states are respectively :
+\begin{itemize}
+  \item \texttt{[AAA BBB]}
+  \item \texttt{[AAAAAA BBBBBB]}
+  \item \texttt{[AAAAAAAAAAAA BBBBBBBBBBBB]}
+\end{itemize}
 
-5. A thorough description of the procedure used to generate successor states when expanding a node.
-see CheckersNode.getChildren()
+\subsection{Method of assessing arc costs}
+As every arc is equivalent to moving 1 checker, we fixed the value of an arc to
+1.
 
-6. An overview description of a solution (i.e. path from start to goal) found by A*. The sequence of search
-states from the start to the goal node must be presented along with a brief summary (in Norwegian or
-English) of the main state-to-state transitions within sequence.
+\subsection{Heuristic function description}
+Our heuristic function calculates the number of differences between the current
+state and our goal, i.e the number of checkers that are not at the right
+position.
+To do this, we start by taking the current state and we assign numbers to each
+checker to create a chain of characters made of numbers. A \texttt{red} checker
+is equal to 1, the \texttt{space} is equal to 2 and a \texttt{black} checker is
+equal to 3. We do the same thing with the goal state. Then we sum the absolute
+value of the substraction of each corresponding case of the two chains. It gives
+us the number of differences between the two states (that we can divide by 2
+because the number of differences is always an even number).
 
-see output from program..
+\subsection{Successor generation procedure}
+To generate the successors states when expanding a node, we use a function that
+adds children by trying to apply the 4 different kinds of move that we could do
+on the current state. These moves are:
+\begin{itemize}
+  \item \texttt{switch the empty space with checker 1 case to the left}
+  \item \texttt{switch the empty space with checker 1 case to the right}
+  \item \texttt{switch the empty space with checker 2 cases to the left}
+  \item \texttt{switch the empty space with checker 2 cases to the right}
+\end{itemize}
 
+
+If we end up in an unvalid case, then the child is not created.
+If we end up on a node that already exists, then we don't add it.
+
+\subsection{Overview description of a solution}
+For the first checkers puzzle with only 6 checkers, our algorithm found a
+solution in 15 steps, which is the optimal solution.
+
+Path reconstruction step by step from the root \texttt{[AAA BBB]} to the goal
+\texttt{[BBB AAA]}:
+
+\begin{itemize}
+  \item \textbf{root} state 0: \texttt{[AAA BBB]}
+  We expand the root node to create 4 children:
+  \begin{itemize}
+    \item \texttt{[AA ABBB]} -> estimated cost from this node to the goal is 6
+    \item \texttt{[AAAB BB]} -> estimated cost from this node to the goal is 6
+    \item \texttt{[A AABBB]} -> estimated cost from this node to the goal is 6
+    \item \texttt{[AAABB B]} -> estimated cost from this node to the goal is 6
+  \end{itemize}
+  As all solutions are equal, we choose the first one.
+  We move the empty space 1 case to the left.
+
+  \item state  1: \texttt{[AA ABBB]}
+  We expand this node to create 2 new children:
+  \begin{itemize}
+    \item (\texttt{[A AABBB]} -> Already created)
+    \item (\texttt{[AAA BBB]} -> Already expanded)
+    \item \texttt{[ AAABBB]} -> estimated cost from this node to the goal is 6
+    \item \texttt{[AABA BB]} -> estimated cost from this node to the goal is 5
+  \end{itemize}
+  Moving the empty space 2 cases to the right seems to be the best solution. 
+
+  \item state  2: \texttt{[AABA BB]}
+  We expand this node to create 3 new children:
+  \begin{itemize}
+    \item \texttt{[AAB ABB]} -> estimated cost from this node to the goal is 4
+    \item \texttt{[AABAB B]} -> estimated cost from this node to the goal is 5
+    \item (\texttt{[AA ABBB]} -> Already expanded)
+    \item \texttt{[AABABB ]} -> estimated cost from this node to the goal is 5
+    \end{itemize}
+  Moving the empty space 1 case to the right seems to be the best solution. 
+  
+  \item state  3: \texttt{[AABAB B]}
+  And so on\ldots
+
+  \item state  4: \texttt{[AAB BAB]}
+  \item state  5: \texttt{[A BABAB]}
+  \item state  6: \texttt{[ ABABAB]}
+  \item state  7: \texttt{[BA ABAB]}
+  \item state  8: \texttt{[BABA AB]}  
+  \item state  9: \texttt{[BABABA ]}  
+  \item state 10: \texttt{[BABAB A]}  
+  \item state 11: \texttt{[BAB BAA]}  
+  \item state 12: \texttt{[B BABAA]}  
+  \item state 13: \texttt{[BB ABAA]}  
+  \item state 14: \texttt{[BBBA AA]}  
+  \item \textbf{goal} state 15: \texttt{[BBB AAA]}
+\end{itemize}
+
+
+For the variant of the checkers puzzle using 12 checkers, our algorithm finds a
+solution in 48 moves.
+
+For the variant of the checkers puzzle using 24 checkers, our algorithm runs for
+a very long time\ldots Too long actually, so we never ended up with a solution.
 
 \end{document}
