@@ -3,12 +3,13 @@
 \usepackage[czech, english]{babel} \usepackage[T1]{fontenc} % pouzije EC fonty
 \usepackage[utf8]{inputenc}
 \usepackage{gensymb}
+\usepackage{amssymb,amsmath}
 \usepackage{graphicx}
 \usepackage{xfrac}
 
 \begin{document}
 
-
+\providecommand{\abs}[1]{\lvert#1\rvert}
 
 \title{A* Algorithm - Report}
 \author{Nicolas Boileau, Simon Stastny}
@@ -112,6 +113,11 @@ mathematical difference between the fraction and the goal is, the more
 permutations we will have to make to reach our goal.
 This is naturally not always true, but it is an estimation that we considered
 acceptable.
+
+\[
+cost estimate (A, GOAL) = \abs{GOAL - A} \times 100 000 000 - 10
+\]
+
 
 \subsection{Successor generation procedure}
 
@@ -347,6 +353,13 @@ equal to 3. We do the same thing with the goal state. Then we sum the absolute
 value of the substraction of each corresponding case of the two chains. It gives
 us the number of differences between the two states (that we can divide by 2
 because the number of differences is always an even number).
+
+\[
+cost estimate (A, GOAL) = \frac{1}{2} \times \sum_i \abs{A_i - GOAL_i}
+\]
+
+where $A_i$ is i-th digit in permutation A, and $GOAL_i$ is i-th
+digit in permutation GOAL. 
 
 \subsection{Successor generation procedure}
 To generate the successors states when expanding a node, we use a function that
