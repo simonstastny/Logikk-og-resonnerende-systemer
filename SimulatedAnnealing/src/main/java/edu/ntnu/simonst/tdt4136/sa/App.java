@@ -26,6 +26,8 @@ public class App
      x.plantEgg(3, 2);
      
       System.out.println(x.countViolations());
+      
+      System.out.println("obj: " + x.objective());
         
     }
 }

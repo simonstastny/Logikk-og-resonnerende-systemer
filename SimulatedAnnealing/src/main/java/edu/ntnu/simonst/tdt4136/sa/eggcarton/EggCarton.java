@@ -1,7 +1,6 @@
 package edu.ntnu.simonst.tdt4136.sa.eggcarton;
 
 import edu.ntnu.simonst.tdt4136.sa.Solution;
-import java.util.List;
 
 /**
  *
@@ -34,17 +33,29 @@ public class EggCarton extends Solution {
 
   @Override
   public String getIdentifier() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    StringBuilder sb = new StringBuilder();
+
+    for (int i = 0; i < horizontalSize; i++) {
+      for (int j = 0; j < verticalSize; j++) {
+        sb.append(carton[i][j] ? "X" : "_");
+      }
+    }
+    return sb.toString();
   }
 
   @Override
   public int objective() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    int eggNumber = 0;
 
-  @Override
-  public List<Solution> getNeighbours() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    for (int i = 0; i < horizontalSize; i++) {
+      for (int j = 0; j < verticalSize; j++) {
+        if (carton[i][j]) {
+          eggNumber++;
+        }
+      }
+    }
+
+    return eggNumber-countViolations();
   }
 
   public int countViolations() {
@@ -126,5 +137,14 @@ public class EggCarton extends Solution {
       violations += Math.max(0, inRow - eggConstraint);
     }
     return violations;
+  }
+
+  @Override
+  public Solution mutate() {
+    EggCarton newCarton = new EggCarton(verticalSize, horizontalSize, eggConstraint);
+
+    //FIXME move eggs, try to plant one more
+
+    return newCarton;
   }
 }
