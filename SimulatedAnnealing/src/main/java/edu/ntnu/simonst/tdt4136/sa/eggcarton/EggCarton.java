@@ -1,9 +1,6 @@
 package edu.ntnu.simonst.tdt4136.sa.eggcarton;
 
 import edu.ntnu.simonst.tdt4136.sa.Solution;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  *
@@ -46,8 +43,6 @@ public class EggCarton extends Solution {
 
   @Override
   public int energy() {
-    //FIXME better think this though
-    //double ratio = 1 - (eggCount() - violationCount());
     return eggCount() - violationCount();
   }
 
@@ -138,36 +133,14 @@ public class EggCarton extends Solution {
     return violations;
   }
 
-  // stochasticky operator poruchy
-  public Solution randomMutate() {
-    EggCarton newCarton = new EggCarton(size, eggConstraint);
-
-    //FIXME move eggs, try to plant one more
-    List<Boolean> listOfEggs = new ArrayList<Boolean>();
-
-    for (int y = 0; y < size; y++) {
-      for (int x = 0; x < size; x++) {
-        listOfEggs.add(Boolean.valueOf(this.carton[x][y]));
-      }
-    }
-
-    Collections.shuffle(listOfEggs);
-
-    for (int y = 0; y < size; y++) {
-      for (int x = 0; x < size; x++) {
-        newCarton.carton[x][y] = listOfEggs.get(0);
-        listOfEggs.remove(0);
-      }
-    }
-
-    return newCarton;
-  }
-
   @Override
   public void print() {
+    System.out.println("----------------------------------");
+    System.out.println("M=" + size + " K=" + eggConstraint + " has maximum " + eggCount() + " eggs.");
     print(carton);
   }
 
+  // stochasticky operator poruchy
   @Override
   public Solution mutate() {
     EggCarton newCarton = new EggCarton(size, eggConstraint);
@@ -180,34 +153,52 @@ public class EggCarton extends Solution {
       }
     }
 
-    int egg_x;
-    int egg_y;
+    if (violationCount() > 0) {
 
-    while (true) {
-      egg_x = (int) Math.round(Math.random() * (size-1));
-      egg_y = (int) Math.round(Math.random() * (size-1));
-      if (newCarton.carton[egg_x][egg_y]) {
-        break;
-      }
-    }
-    
-    int space_x;
-    int space_y;
+      int egg_x;
+      int egg_y;
 
-    while (true) {
-      space_x = (int) Math.round(Math.random() * (size-1));
-      space_y = (int) Math.round(Math.random() * (size-1));
-      if (!newCarton.carton[space_x][space_y]) {
-        break;
+      while (true) {
+        egg_x = (int) Math.round(Math.random() * (size - 1));
+        egg_y = (int) Math.round(Math.random() * (size - 1));
+        if (newCarton.carton[egg_x][egg_y]) {
+          break;
+        }
       }
+
+      int space_x;
+      int space_y;
+
+      while (true) {
+        space_x = (int) Math.round(Math.random() * (size - 1));
+        space_y = (int) Math.round(Math.random() * (size - 1));
+        if (!newCarton.carton[space_x][space_y]) {
+          break;
+        }
+      }
+
+      newCarton.pickEgg(egg_x, egg_y);
+      newCarton.plantEgg(space_x, space_y);
+    } else {
+      int space_x;
+      int space_y;
+
+      while (true) {
+        space_x = (int) Math.round(Math.random() * (size - 1));
+        space_y = (int) Math.round(Math.random() * (size - 1));
+        if (!newCarton.carton[space_x][space_y]) {
+          break;
+        }
+      }
+
+      newCarton.plantEgg(space_x, space_y);
     }
-    
-    newCarton.pickEgg(egg_x, egg_y);
-    newCarton.plantEgg(space_x, space_y);
-    
-//    System.out.println("");
-//    newCarton.print();
 
     return newCarton;
+  }
+
+  @Override
+  public double energyRelative() {
+    return (double)1000*(size*eggConstraint - energy());
   }
 }

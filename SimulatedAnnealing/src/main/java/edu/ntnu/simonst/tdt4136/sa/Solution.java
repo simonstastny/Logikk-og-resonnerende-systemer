@@ -9,6 +9,8 @@ public abstract class Solution {
   public abstract String getIdentifier();
 
   public abstract int energy();
+  
+  public abstract double energyRelative();
 
   public abstract Solution mutate();
 
