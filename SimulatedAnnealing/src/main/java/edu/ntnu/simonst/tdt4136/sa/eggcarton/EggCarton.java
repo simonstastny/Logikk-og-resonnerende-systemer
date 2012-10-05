@@ -1,6 +1,9 @@
 package edu.ntnu.simonst.tdt4136.sa.eggcarton;
 
 import edu.ntnu.simonst.tdt4136.sa.Solution;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -8,19 +11,16 @@ import edu.ntnu.simonst.tdt4136.sa.Solution;
  */
 public class EggCarton extends Solution {
 
-  protected int verticalSize;
-
-  protected int horizontalSize;
+  protected int size;
 
   protected int eggConstraint;
 
   protected boolean[][] carton;
 
-  public EggCarton(int verticalSize, int horizontalSize, int eggConstraint) {
-    this.verticalSize = verticalSize;
-    this.horizontalSize = horizontalSize;
+  public EggCarton(int size, int eggConstraint) {
+    this.size = size;
     this.eggConstraint = eggConstraint;
-    this.carton = new boolean[horizontalSize][verticalSize];
+    this.carton = new boolean[size][size];
   }
 
   public void plantEgg(int x, int y) {
@@ -35,39 +35,42 @@ public class EggCarton extends Solution {
   public String getIdentifier() {
     StringBuilder sb = new StringBuilder();
 
-    for (int i = 0; i < horizontalSize; i++) {
-      for (int j = 0; j < verticalSize; j++) {
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
         sb.append(carton[i][j] ? "X" : "_");
       }
     }
+
     return sb.toString();
   }
 
   @Override
-  public int objective() {
-    int eggNumber = 0;
+  public int energy() {
+    //FIXME better think this though
+    //double ratio = 1 - (eggCount() - violationCount());
+    return eggCount() - violationCount();
+  }
 
-    for (int i = 0; i < horizontalSize; i++) {
-      for (int j = 0; j < verticalSize; j++) {
+  protected int eggCount() {
+    int eggs = 0;
+
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
         if (carton[i][j]) {
-          eggNumber++;
+          eggs++;
         }
       }
     }
 
-    return eggNumber-countViolations();
+    return eggs;
   }
 
-  public int countViolations() {
+  public int violationCount() {
     int violations = 0;
-
-    print(carton);
-
 
     // ROWS & COLUMNS
     violations += checkRows(carton);
     violations += checkRows(rotate(carton));
-
 
     // DIAGONALS
     violations += checkDiagonal(carton);
@@ -76,49 +79,45 @@ public class EggCarton extends Solution {
     return violations;
   }
 
+  public boolean[][] getCarton() {
+    return carton; //FIXME encapsulate
+  }
+
   public void print(boolean[][] crate) {
-    for (int i = 0; i < horizontalSize; i++) {
-      for (int j = 0; j < verticalSize; j++) {
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
         System.out.print(crate[i][j] ? "X " : "_ ");
       }
-      System.out.println("");
+      System.out.println();
     }
   }
 
-  static boolean[][] rotate(boolean[][] mat) {
-    final int M = mat.length;
-    final int N = mat[0].length;
-    boolean[][] ret = new boolean[N][M];
-    for (int r = 0; r < M; r++) {
-      for (int c = 0; c < N; c++) {
-        ret[c][M - 1 - r] = mat[r][c];
+  boolean[][] rotate(boolean[][] mat) {
+    boolean[][] rotated = new boolean[size][size];
+    for (int row = 0; row < size; row++) {
+      for (int column = 0; column < size; column++) {
+        rotated[column][size - 1 - row] = mat[row][column];
       }
     }
-    return ret;
+    return rotated;
   }
 
   protected int checkDiagonal(boolean[][] crate) {
-    int numberOfDiagonals = (2 * horizontalSize - 1);
+    int numberOfDiagonals = (2 * size - 1);
     int violations = 0;
     for (int i = 0; i < numberOfDiagonals; i++) {
       int inDiag = 0;
-      //int length = numberOfDiagonals - Math.abs(i - horizontalSize + 1);
 
-      int startX = Math.min(horizontalSize - 1, i);
-      int endX = Math.max(0, i - horizontalSize + 1);
+      int startX = Math.min(size - 1, i);
+      int endX = Math.max(0, i - size + 1);
 
       int y = endX;
-
-      //System.out.println("start: " + (startX) + " --- end: " + endX);
 
       for (int x = startX; x >= endX; x--, y++) {
         if (crate[x][y]) {
           inDiag++;
         }
-        //System.out.println(x + " " + y);
       }
-
-      //System.out.println("----- eggs: " + inDiag);
 
       violations += Math.max(0, inDiag - eggConstraint);
     }
@@ -127,9 +126,9 @@ public class EggCarton extends Solution {
 
   protected int checkRows(boolean[][] crate) {
     int violations = 0;
-    for (int y = 0; y < verticalSize; y++) {
+    for (int y = 0; y < size; y++) {
       int inRow = 0;
-      for (int x = 0; x < horizontalSize; x++) {
+      for (int x = 0; x < size; x++) {
         if (crate[x][y]) {
           inRow++;
         }
@@ -139,12 +138,34 @@ public class EggCarton extends Solution {
     return violations;
   }
 
+  // stochasticky operator poruchy
   @Override
   public Solution mutate() {
-    EggCarton newCarton = new EggCarton(verticalSize, horizontalSize, eggConstraint);
+    EggCarton newCarton = new EggCarton(size, eggConstraint);
 
     //FIXME move eggs, try to plant one more
+    List<Boolean> listOfEggs = new ArrayList<Boolean>();
+
+    for (int y = 0; y < size; y++) {
+      for (int x = 0; x < size; x++) {
+        listOfEggs.add(Boolean.valueOf(this.carton[x][y]));
+      }
+    }
+
+    Collections.shuffle(listOfEggs);
+
+    for (int y = 0; y < size; y++) {
+      for (int x = 0; x < size; x++) {
+        newCarton.carton[x][y] = listOfEggs.get(0);
+        listOfEggs.remove(0);
+      }
+    }
 
     return newCarton;
+  }
+
+  @Override
+  public void print() {
+    print(carton);
   }
 }
