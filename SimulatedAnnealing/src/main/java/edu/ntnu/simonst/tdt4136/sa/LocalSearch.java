@@ -7,7 +7,7 @@ package edu.ntnu.simonst.tdt4136.sa;
 public class LocalSearch {
 
   /* SETUP */
-  protected static final int ITERATION_RUNS = 1000; // should be between 1e3 and 1e5
+  protected static final int ITERATION_RUNS = 10000; // should be between 1e3 and 1e5
 
   protected static final int MAX_TEMPERATURE = 2000; //FIXME
 
@@ -74,7 +74,7 @@ public class LocalSearch {
 
     double perc = (double) acceptedWorse / (double) worse;
     
-    System.out.println(perc + " -- stat: " + acceptedWorse + " / " + worse);
+    //System.out.println(perc + " -- stat: " + acceptedWorse + " / " + worse);
 
     return best;
   }

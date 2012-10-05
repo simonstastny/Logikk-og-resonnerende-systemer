@@ -139,8 +139,7 @@ public class EggCarton extends Solution {
   }
 
   // stochasticky operator poruchy
-  @Override
-  public Solution mutate() {
+  public Solution randomMutate() {
     EggCarton newCarton = new EggCarton(size, eggConstraint);
 
     //FIXME move eggs, try to plant one more
@@ -167,5 +166,48 @@ public class EggCarton extends Solution {
   @Override
   public void print() {
     print(carton);
+  }
+
+  @Override
+  public Solution mutate() {
+    EggCarton newCarton = new EggCarton(size, eggConstraint);
+
+    for (int y = 0; y < size; y++) {
+      for (int x = 0; x < size; x++) {
+        if (carton[x][y]) {
+          newCarton.plantEgg(x, y);
+        }
+      }
+    }
+
+    int egg_x;
+    int egg_y;
+
+    while (true) {
+      egg_x = (int) Math.round(Math.random() * (size-1));
+      egg_y = (int) Math.round(Math.random() * (size-1));
+      if (newCarton.carton[egg_x][egg_y]) {
+        break;
+      }
+    }
+    
+    int space_x;
+    int space_y;
+
+    while (true) {
+      space_x = (int) Math.round(Math.random() * (size-1));
+      space_y = (int) Math.round(Math.random() * (size-1));
+      if (!newCarton.carton[space_x][space_y]) {
+        break;
+      }
+    }
+    
+    newCarton.pickEgg(egg_x, egg_y);
+    newCarton.plantEgg(space_x, space_y);
+    
+//    System.out.println("");
+//    newCarton.print();
+
+    return newCarton;
   }
 }
