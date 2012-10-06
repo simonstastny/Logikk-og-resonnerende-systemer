@@ -17,14 +17,25 @@
 \maketitle
 
 \section{Description of implementation}
-Plain text\ldots
+
+\subsection{Representation}
+boolean[][] (true where the egg is)
+
+\subsection{Objective functions}
+
+see energy() and energyRelative()
+
+\subsection{Neighbour generation}
+
+if current solution is valid, add one egg to a free place
+
+if it's invalid, find egg randomly and swith it with random free space
 
 \section{Solutions found}
 
 \subsection{Egg Carton puzzle K=2, M=5}
 
 There can be 12 eggs placed in this variant of the puzzle.
-
 
 X \_ \_ X \_ 
 
@@ -97,6 +108,11 @@ X \_ \_ X \_ X \_ \_ \_ \_
 \_ \_ \_ \_ \_ X X \_ X \_ 
 
 \section{Discussion}
+
+heuristic - we know how a perfect solutions looks like
+
+objective function - we dont know how perfect solution looks like, but we know
+how to compare two solutions, so we can tell which one of two is better
 
 
 
