@@ -6,10 +6,17 @@ package edu.ntnu.simonst.tdt4136.sa;
  */
 public abstract class Solution {
 
-  public abstract String getIdentifier();
-
+  /**
+   * the smaller the energy is, the better the solutions is
+   * @return energy of solution
+   */
   public abstract int energy();
   
+  /**
+   * the smaller the energy is, the better the solutions is
+   * this kind of energy is used for evaluating the probability
+   * @return relative energy of solution
+   */
   public abstract double energyRelative();
 
   public abstract Solution mutate();
