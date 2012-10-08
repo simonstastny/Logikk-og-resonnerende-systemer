@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.11.1)  6 OCT 2012 16:28
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.11.1)  8 OCT 2012 19:14
 entering extended mode
 **document.tex
 
@@ -793,28 +793,49 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 17.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
-) [1
+)
+Overfull \hbox (22.04926pt too wide) in paragraph at lines 26--30
+[]\T1/cmr/m/n/10 To rep-re-sent our sys-tem, we use an ar-ray of booleans with 
+2 di-men-sions: boolean[x][y].
+ []
+
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 32.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+Overfull \hbox (20.48373pt too wide) in paragraph at lines 31--35
+\T1/cmr/m/n/10 ing/rejecting it. This num-ber is \T1/cmtt/m/n/10 ITERATION_RUNS
+ \T1/cmr/m/n/10 pa-ram-e-ter of \T1/cmtt/m/n/10 SimulatedAnnealing
+ []
+
+[1
 
 {C:/Users/Simon/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
+[3]
 (C:\Users\Simon\Documents\GitHub\Logikk-og-resonnerende-systemer\simulated-anne
 aling-report\document.aux) ) 
 Here is how much of TeX's memory you used:
- 9000 strings out of 494045
- 153053 string characters out of 3145969
- 194250 words of memory out of 3000000
- 12155 multiletter control sequences out of 15000+200000
- 13913 words of font info for 41 fonts, out of 3000000 for 9000
+ 9039 strings out of 494045
+ 153872 string characters out of 3145969
+ 195250 words of memory out of 3000000
+ 12183 multiletter control sequences out of 15000+200000
+ 18472 words of font info for 55 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  44i,6n,31p,297b,203s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Simon\AppData\Local\MiKTeX\2.9\fonts\pk\
-ljfour\jknappen\ec\dpi600\ecrm1000.pk> <C:\Users\Simon\AppData\Local\MiKTeX\2.9
+ljfour\jknappen\ec\dpi600\ectt1000.pk> <C:\Users\Simon\AppData\Local\MiKTeX\2.9
 \fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1200.pk> <C:\Users\Simon\AppData\Local\
-MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk> <C:\Users\Simon\AppD
-ata\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk> <C:\Users\
-Simon\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1728.pk>
-Output written on document.pdf (2 pages, 51701 bytes).
+MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk> <C:\Users\Simon\AppD
+ata\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk> <C:\Users\
+Simon\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk> 
+<C:\Users\Simon\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecr
+m1728.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi
+10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.
+pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pf
+b><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on document.pdf (3 pages, 113027 bytes).
 PDF statistics:
- 168 PDF objects out of 1000 (max. 8388607)
+ 247 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

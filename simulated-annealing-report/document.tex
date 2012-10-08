@@ -18,12 +18,20 @@
 
 \section{Description of implementation}
 
+We decided to implement just one of the puzzles: egg carton puzzle. This report
+covers this only.
+
 \subsection{Representation}
 
 To represent our system, we use an array of booleans with 2
 dimensions: boolean[x][y]. When there is an egg, the boolean is true. The
 temperature is an integer that starts at 2000 and decrease slowly at a rate of
-95% per run until it reaches the minimal temperature of 1.
+95\% per run until it reaches the minimal temperature of 1.
+
+For each temperature, there are 20 iterations of finding solution and
+accepting/rejecting it. This number is \texttt{ITERATION\_RUNS} parameter of
+\texttt{SimulatedAnnealing} class and can be modified (however we found 20 to
+be sufficient for this puzzle).
 
 \subsection{Objective function}
 
@@ -31,9 +39,13 @@ To evaluate a solution, we first create a number that we consider as the
 maximum number of eggs that we could possibly have in the box if we respect the
 constraints. That doesn't mean that there is a solution in which we can put
 that many eggs, but we are sure that we can't put more. This number is
-\texttt{width_of_the_box \times limit_of_eggs_per_line}. For example for a box
-with a size of 6*6 and a constraint of K=2, we consider that we can never place more than 6*2
-= 12eggs.
+
+\[
+max = size\_of\_the\_box \times limit\_of\_eggs\_per\_line
+\]
+
+For example for a box with a size of 6*6 and a constraint of K=2, we consider
+that we can never place more than 6*2 = 12 eggs.
 
 Then, for a given solution, we count the \texttt{number of eggs in the box}, and
 we retrieve the \texttt{number of violations}, which is the number of eggs that
@@ -42,9 +54,9 @@ constraint K=2, we count 2 violations.
 
 Finally, we retrieve this number to the first number we calculated. So for a
 given solution X, we have a number calculated using the following formula:
+
 \[
-energy(X) = (size_of_the_box \times eggConstraint) - (violationCount() +
-eggCount());
+energy(X) = max - (eggCount() - violationCount());
 \]
 
 The smaller this number is, the closer we are from the optimal solution. If we
@@ -59,6 +71,7 @@ it as our new best solution. But even if it's not the best, we have a
 probability to accept it. To decide whether we adopt a solution X' or not, we
 generate the probability of accepting it at a temperature T using the following
 formula:
+
 \[
  P = \exp(\frac{1000 \times (energy(X) - energy(X'))}{T})
 \]
@@ -80,7 +93,7 @@ will always be one egg added or moved.
 \subsection{Egg Carton puzzle K=2, M=5}
 
 There can be 12 eggs placed in this variant of the puzzle.
-\texttt{
+
 X \_ \_ X \_ 
 
 \_ X X \_ \_ 
@@ -90,12 +103,12 @@ X \_ \_ \_ X
 \_ \_ X \_ X 
 
 \_ X \_ X \_ 
-}
+
 
 \subsection{Egg Carton puzzle K=2, M=6}
 
 There can be 12 eggs placed in this variant of the puzzle.
-\texttt{
+
 \_ \_ \_ X X \_ 
 
 X X \_ \_ \_ \_ 
@@ -107,12 +120,12 @@ X \_ X \_ \_ \_
 \_ X X \_ \_ \_ 
 
 \_ \_ \_ X \_ X 
-}
+
 
 \subsection{Egg Carton puzzle K=1, M=8}
 
 There can be 8 eggs placed in this variant of the puzzle.
-\texttt{
+
 \_ \_ \_ \_ X \_ \_ \_ 
 
 X \_ \_ \_ \_ \_ \_ \_ 
@@ -128,12 +141,12 @@ X \_ \_ \_ \_ \_ \_ \_
 \_ X \_ \_ \_ \_ \_ \_ 
 
 \_ \_ \_ X \_ \_ \_ \_ 
-}
+
 
 \subsection{Egg Carton puzzle K=3, M=10}
 
 There can be 30 eggs placed in this variant of the puzzle. 
-\texttt{
+
 \_ X \_ \_ \_ \_ X \_ X \_ 
 
 \_ \_ X \_ X X \_ \_ \_ \_ 
@@ -153,17 +166,18 @@ X X \_ \_ \_ \_ \_ \_ \_ X
 X \_ \_ X \_ X \_ \_ \_ \_ 
 
 \_ \_ \_ \_ \_ X X \_ X \_ 
-}
+
 
 \section{Discussion: heuristic and objective functions}
 
 Both of these types of functions give a value to a solution to evaluate how good
 it seems, but the \texttt{heuristic functions} require to know our goal in order
 to evaluate how appropriate a candidate seems to be. We know how an optimal solution
-looks like. Whereas the \texttt{objective functions} evaluate a solution
-without knowing of the optimal solution. They just give an estimation on
-how good it seems, and then we need to compare two candidates in order to
-choose which one seems to be best in order to reach our goal, but we can't know
-if we have an optimal solution.
+looks like, so we can stop when we find it.
+
+Whereas the \texttt{objective functions} evaluate a solution without knowing of
+the optimal solution. They just give an estimation on how good it seems. It
+allows us to compare two candidates in order to choose which one seems better
+(in order to reach our goal), but we can't know if we have an optimal solution.
 
 \end{document}

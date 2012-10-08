@@ -7,7 +7,7 @@ package edu.ntnu.simonst.tdt4136.sa;
 public class SimulatedAnnealing {
 
   /* SIMULATED ANNEALING SETUP */
-  protected static final int ITERATION_RUNS = 10000; // should be somwhere between 1e3 and 1e5
+  protected static final int ITERATION_RUNS = 20;
 
   protected static final int MAX_TEMPERATURE = 2000;
 
