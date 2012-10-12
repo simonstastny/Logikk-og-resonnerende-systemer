@@ -6,3 +6,5 @@ Logikk-og-resonnerende-systemer
 2/ A* algorithm - Fraction puzzle, Checkers puzzle
 
 3/ Simulated Annealing - Egg Carton puzzle
+
+4/ Backtracking/Local Search - K-Queen puzzle
