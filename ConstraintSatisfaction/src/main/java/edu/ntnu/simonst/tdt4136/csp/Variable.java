@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.Stack;
 
 /**
- *
+ * 13.10.2012
  * @author Simon Stastny
  */
 public abstract class Variable<DomainValueType> {
@@ -20,12 +20,17 @@ public abstract class Variable<DomainValueType> {
   }
   
   protected void addConflicts(Set<DomainValueType> values) {
-    values.remove(value); //CHECK
-    conflicts.add(values);
+    // assigned value should not be present in conflict stack
+    // prirazenou hodnotu nechceme mit v zasobniku neshod
+    values.remove(value);
+    
+    // push all remaining values from the domain to the conflict stack
+    // narvi zbytek oboru hodnot do zasobiku neshod
+    putToConflicts(values);
   }
 
   public Set<DomainValueType> getOrderedDomainValues() {
-    //FIXME order it!!!
+    //FIXME this should be ordered, preferably by "smallest domain"
     return domain;
   }
   
@@ -49,14 +54,25 @@ public abstract class Variable<DomainValueType> {
     domain.remove(value);
   }
   
+  /**
+   * 
+   * @param set set of conflict values
+   */
   public void putToConflicts(Set<DomainValueType> set) {
     conflicts.add(set);
   }
   
-  public void emptyConflicts() {
+  /**
+   * method for clearing inferences (emptying conflict stack, generating domain values)
+   */
+  public void clearInferences() {
     conflicts = new Stack<Set<DomainValueType>>();
     domain = generateDomain();
   }
   
+  /**
+   * method for generating domain values
+   * @return set of domain values
+   */
   public abstract Set<DomainValueType> generateDomain();
 }

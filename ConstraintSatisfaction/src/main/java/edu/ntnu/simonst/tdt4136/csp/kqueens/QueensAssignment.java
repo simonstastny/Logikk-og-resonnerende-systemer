@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
+ * 13.10.2012
  * @author Simon Stastny
  */
 public class QueensAssignment extends Assignment {
@@ -66,7 +66,7 @@ public class QueensAssignment extends Assignment {
     for (int i = 0; i < size; i++) {
       Queen queen = queens[i];
       if (queen.isUnassigned()) {
-        queens[i].emptyConflicts();
+        queens[i].clearInferences();
       }
     }
 
