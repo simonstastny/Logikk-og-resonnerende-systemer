@@ -5,9 +5,9 @@ import java.util.Stack;
 
 /**
  *
- * @author Simon
+ * @author Simon Stastny
  */
-public class Variable<DomainValueType> {
+public abstract class Variable<DomainValueType> {
 
   protected Set<DomainValueType> domain;
 
@@ -20,6 +20,7 @@ public class Variable<DomainValueType> {
   }
   
   protected void addConflicts(Set<DomainValueType> values) {
+    values.remove(value); //CHECK
     conflicts.add(values);
   }
 
@@ -37,7 +38,7 @@ public class Variable<DomainValueType> {
   }
   
   public boolean isUnassigned() {
-    return !(value==null);
+    return value==null;
   }
   
   public boolean isValueInDomain(DomainValueType value) {
@@ -51,4 +52,11 @@ public class Variable<DomainValueType> {
   public void putToConflicts(Set<DomainValueType> set) {
     conflicts.add(set);
   }
+  
+  public void emptyConflicts() {
+    conflicts = new Stack<Set<DomainValueType>>();
+    domain = generateDomain();
+  }
+  
+  public abstract Set<DomainValueType> generateDomain();
 }

@@ -4,9 +4,12 @@ package edu.ntnu.simonst.tdt4136.csp;
  *
  * @author Simon Stastny
  */
-public abstract class BacktrackSearch<DomainValueType> {
+public class BacktrackSearch<DomainValueType> {
 
   public Assignment backtrack(Assignment assignment) {
+    
+    assignment.printCurrent(); //FIXME
+    
     // return the solution if it was found
     if (assignment.isComplete()) {
       return assignment;
@@ -40,8 +43,8 @@ public abstract class BacktrackSearch<DomainValueType> {
       //----
       // odstran posledni hodnotu a inference z assinmentu
       var.setValue(null);
-      assignment.recomputeInferences();
-
+      if(!var.conflicts.empty())var.conflicts.pop();
+      assignment.recomputeInferences(); //FIXME
     }
 
     return null;
