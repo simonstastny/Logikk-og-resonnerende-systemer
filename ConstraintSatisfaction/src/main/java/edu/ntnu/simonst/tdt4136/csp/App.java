@@ -11,7 +11,7 @@ public class App {
   public static void main(String[] args) {
     BacktrackSearch<Integer> csp = new BacktrackSearch<Integer>();
 
-    Assignment solution = csp.backtrack(new QueensAssignment(8));
+    Assignment<Integer> solution = csp.backtrack(new QueensAssignment(8));
 
     if (solution != null) {
       solution.printCurrent();

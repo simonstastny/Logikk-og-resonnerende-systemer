@@ -6,7 +6,12 @@ package edu.ntnu.simonst.tdt4136.csp;
  */
 public class BacktrackSearch<DomainValueType> {
 
-  public Assignment backtrack(Assignment assignment) {
+  /**
+   * search using backtrack
+   * @param assignment assignment state to solve
+   * @return solved assignment
+   */
+  public Assignment<DomainValueType> backtrack(Assignment<DomainValueType> assignment) {
     
     //DBG
     //assignment.printCurrent();
@@ -32,7 +37,7 @@ public class BacktrackSearch<DomainValueType> {
 
       // find solution recursively
       // najdi vnorene reseni
-      Assignment solution = backtrack(assignment);
+      Assignment<DomainValueType> solution = backtrack(assignment);
       
       // return the solution if it is successful
       // pokud je reseni uspesne, vrat ho
@@ -45,7 +50,9 @@ public class BacktrackSearch<DomainValueType> {
       // v teto vetvi nebylo resnei uspesne -> backtracking
       // odstran posledni hodnotu a usudky z ulohy
       var.setValue(null);
-      if(!var.conflicts.empty())var.conflicts.pop();
+      if(!var.conflicts.empty()) {
+        var.conflicts.pop();
+      }
       assignment.recomputeInferences(); //FIXME
     }
 

@@ -9,7 +9,7 @@ import java.util.Set;
  * 13.10.2012
  * @author Simon Stastny
  */
-public class QueensAssignment extends Assignment {
+public class QueensAssignment extends Assignment<Integer> {
 
   protected int size;
 
@@ -30,8 +30,9 @@ public class QueensAssignment extends Assignment {
       for (int column = 0; column < size; column++) {
         if (queen.getValue() == null) {
           System.out.print("? ");
-        } else
-        System.out.print(queen.getValue() == column ? "X " : "_ ");
+        } else {
+          System.out.print(queen.getValue() == column ? "X " : "_ ");
+        }
       }
       System.out.println("");
     }
@@ -50,7 +51,7 @@ public class QueensAssignment extends Assignment {
   }
 
   @Override
-  public Variable selectUnassignedVariable() {
+  public Variable<Integer> selectUnassignedVariable() {
     for (int i = 0; i < size; i++) {
       Queen queen = queens[i];
       if (queen.isUnassigned()) {

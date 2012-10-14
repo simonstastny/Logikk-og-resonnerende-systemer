@@ -13,7 +13,7 @@ public abstract class Variable<DomainValueType> {
 
   protected Stack<Set<DomainValueType>> conflicts;
   
-  DomainValueType value;
+  protected DomainValueType value;
 
   public Stack<Set<DomainValueType>> getConflicts() {
     return conflicts;
@@ -22,7 +22,7 @@ public abstract class Variable<DomainValueType> {
   protected void addConflicts(Set<DomainValueType> values) {
     // assigned value should not be present in conflict stack
     // prirazenou hodnotu nechceme mit v zasobniku neshod
-    values.remove(value);
+    values.remove(getValue());
     
     // push all remaining values from the domain to the conflict stack
     // narvi zbytek oboru hodnot do zasobiku neshod
@@ -34,16 +34,8 @@ public abstract class Variable<DomainValueType> {
     return domain;
   }
   
-  public void setValue(DomainValueType value) {
-    this.value = value;
-  }
-  
-  public DomainValueType getValue() {
-    return value;
-  }
-  
   public boolean isUnassigned() {
-    return value==null;
+    return getValue()==null;
   }
   
   public boolean isValueInDomain(DomainValueType value) {
@@ -75,4 +67,18 @@ public abstract class Variable<DomainValueType> {
    * @return set of domain values
    */
   public abstract Set<DomainValueType> generateDomain();
+
+  /**
+   * @return the value
+   */
+  public DomainValueType getValue() {
+    return value;
+  }
+
+  /**
+   * @param value the value to set
+   */
+  public void setValue(DomainValueType value) {
+    this.value = value;
+  }
 }
