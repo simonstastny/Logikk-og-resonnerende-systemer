@@ -2,7 +2,6 @@ package edu.ntnu.simonst.tdt4136.csp;
 
 import java.util.List;
 import java.util.Set;
-import java.util.Stack;
 
 /**
  * 13.10.2012
@@ -11,14 +10,17 @@ import java.util.Stack;
  */
 public abstract class Assignment<DomainValueType> {
   
-  protected Variable[] variableArray;
+  protected Variable[] variables;
 
   /**
    * prints the currently explored state of the solution
    */
   public abstract void printCurrent();
   
-  public abstract String printState();
+  /**
+   * prints the state of puzzle
+   */
+  public abstract void printState();
 
   /**
    * Checks for the completeness and validity of solution.
@@ -40,19 +42,14 @@ public abstract class Assignment<DomainValueType> {
    */
   public abstract List<Constraint> setupConstraints();
 
-  void popConflicts() {
-    for(Variable var : variableArray) {
-      if(//var.isUnassigned() && 
-              var.getConflicts() != null &&
-              !var.getConflicts().isEmpty()) {
-        Set<DomainValueType> recharge = (Set<DomainValueType>) var.getConflicts().pop();
-        var.domain.addAll(recharge);        
+  protected void popConflicts() {
+    for(Variable var : variables) {
+      if(var.getConflicts() != null && !var.getConflicts().isEmpty()) {
+        var.domain.addAll((Set<DomainValueType>) var.getConflicts().pop());        
       }
       
       if(var.isUnassigned()) {
-        var.domain = var.generateDomain();
-        var.conflicts = new Stack();
-        var.setValue(null);
+        var.clear();
       }
     }
   }

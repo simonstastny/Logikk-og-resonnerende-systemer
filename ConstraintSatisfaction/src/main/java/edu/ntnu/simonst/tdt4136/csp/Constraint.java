@@ -6,17 +6,16 @@ package edu.ntnu.simonst.tdt4136.csp;
  */
 public abstract class Constraint implements Cloneable {
 
-  protected Variable a;
+  protected Variable master;
 
-  protected Variable b;
+  protected Variable slave;
 
   /**
-   * Checks consistency of constraint between variables a and b
+   * Checks consistency of constraint between variables master and slave
    *
-   * @return true if constraint between variables a and b is satisfied
+   * @return true if constraint between variables master and slave is satisfied
    */
   public abstract boolean isSatisfied();
-
 
   @Override
   public Object clone() {
@@ -28,30 +27,31 @@ public abstract class Constraint implements Cloneable {
   }
 
   /**
-   * @return the a
+   * @return the master
    */
-  public Variable getA() {
-    return a;
+  public Variable getMaster() {
+    return master;
   }
 
   /**
-   * @param a the a to set
+   * @param master the master to set
    */
-  public void setA(Variable a) {
-    this.a = a;
+  public void setMaster(Variable master) {
+    this.master = master;
   }
 
   /**
-   * @return the b
+   * @return the slave
    */
-  public Variable getB() {
-    return b;
+  public Variable getSlave() {
+    return slave;
   }
 
   /**
-   * @param b the b to set
+   * @param slave the slave to set
    */
-  public void setB(Variable b) {
-    this.b = b;
+  public void setSlave(Variable slave) {
+    this.slave = slave;
   }
+
 }

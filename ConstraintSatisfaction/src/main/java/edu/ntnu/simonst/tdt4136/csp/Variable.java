@@ -1,11 +1,11 @@
 package edu.ntnu.simonst.tdt4136.csp;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
 /**
  * 13.10.2012
+ *
  * @author Simon Stastny
  */
 public abstract class Variable<DomainValueType> implements Cloneable {
@@ -13,7 +13,7 @@ public abstract class Variable<DomainValueType> implements Cloneable {
   protected Set<DomainValueType> domain;
 
   protected Stack<Set<DomainValueType>> conflicts;
-  
+
   protected DomainValueType value;
 
   public Stack<Set<DomainValueType>> getConflicts() {
@@ -24,32 +24,31 @@ public abstract class Variable<DomainValueType> implements Cloneable {
     //FIXME this should be ordered, preferably by "smallest domain"
     return domain;
   }
-  
+
   public boolean isUnassigned() {
-    return getValue()==null;
+    return getValue() == null;
   }
-  
-  public boolean isValueInDomain(DomainValueType value) {
-    return domain.contains(value);
+
+  public void removeFromDomain(Set<DomainValueType> values) {
+    for (DomainValueType val : values) {
+      domain.remove(val);
+    }
   }
-  
-  public void removeValueFromDomain(DomainValueType value) {
-    domain.remove(value);
-  }
-  
+
   /**
-   * 
+   *
    * @param set set of conflict values
    */
-  public void putToConflicts(Set<DomainValueType> set) {
+  public void addConflicts(Set<DomainValueType> set) {
     conflicts.add(set);
   }
-  
+
   /**
    * method for generating domain values
+   *
    * @return set of domain values
    */
-  public abstract Set<DomainValueType> generateDomain();
+  protected abstract Set<DomainValueType> generateDomain();
 
   /**
    * @return the value
@@ -72,5 +71,14 @@ public abstract class Variable<DomainValueType> implements Cloneable {
     } catch (CloneNotSupportedException e) {
       return null;
     }
+  }
+
+  /**
+   * clears variable's fields (regenerates domain, empties conflict stack, sets null value)
+   */
+  public void clear() {
+    this.domain = generateDomain();
+    this.conflicts = new Stack<Set<DomainValueType>>();
+    this.setValue(null);
   }
 }

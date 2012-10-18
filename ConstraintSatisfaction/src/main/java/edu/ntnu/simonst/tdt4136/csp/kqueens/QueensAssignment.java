@@ -13,36 +13,38 @@ import java.util.List;
  */
 public class QueensAssignment extends Assignment<Integer> {
 
-  protected int size;
+  protected int gameSize;
 
   public QueensAssignment(int size) {
-    this.size = size;
-    this.variableArray = new Queen[size];
+    this.gameSize = size;
+    this.variables = new Queen[size];
 
     for (int i = 0; i < size; i++) {
-      variableArray[i] = new Queen(i, size);
+      variables[i] = new Queen(i, size);
     }
   }
 
   public void printCurrent() {
-    for (int row = 0; row < size; row++) {
-      Queen queen = (Queen) variableArray[row];
-      for (int column = 0; column < size; column++) {
+    StringBuilder sb = new StringBuilder();
+    for (int row = 0; row < gameSize; row++) {
+      Queen queen = (Queen) variables[row];
+      for (int column = 0; column < gameSize; column++) {
         if (queen.getValue() == null) {
-          System.out.print("? ");
+          sb.append("? ");
         } else {
-          System.out.print(queen.getValue() == column ? "X " : "_ ");
+          sb.append(queen.getValue() == column ? "X " : "_ ");
         }
       }
-      System.out.println("");
+      sb.append("\n");
     }
-    System.out.println("");
+    sb.append("\n");
+    System.out.println(sb.toString());
   }
 
   @Override
   public boolean isComplete() {
-    for (int i = 0; i < size; i++) {
-      Queen queen = (Queen) variableArray[i];
+    for (int i = 0; i < gameSize; i++) {
+      Queen queen = (Queen) variables[i];
       if (queen.getValue() == null) {
         return false;
       }
@@ -52,8 +54,10 @@ public class QueensAssignment extends Assignment<Integer> {
 
   @Override
   public Variable<Integer> selectUnassignedVariable() {
-    for (int i = 0; i < size; i++) {
-      Queen queen = (Queen) variableArray[i];
+    // selects first queen which is not assigned a column
+    // i.e. first variable without value
+    for (int i = 0; i < gameSize; i++) {
+      Queen queen = (Queen) variables[i];
       if (queen.isUnassigned()) {
         return queen;
       }
@@ -63,14 +67,13 @@ public class QueensAssignment extends Assignment<Integer> {
 
   @Override
   public List<Constraint> setupConstraints() {
-    // make inferences - create costraints
-
+    // create constraints on arcs (between all variables)
     List<Constraint> constraints = new ArrayList<Constraint>();
 
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
+    for (int i = 0; i < gameSize; i++) {
+      for (int j = 0; j < gameSize; j++) {
         if (i != j) {
-          constraints.add(new AttackConstraint(variableArray[i], variableArray[j]));
+          constraints.add(new AttackConstraint(variables[i], variables[j]));
         }
       }
     }
@@ -79,15 +82,14 @@ public class QueensAssignment extends Assignment<Integer> {
   }
 
   @Override
-  public String printState() {
-    
+  public void printState() {
     StringBuilder sb = new StringBuilder();
     
-    for (Variable var : variableArray) {
+    for (Variable var : variables) {
       Queen queen = (Queen) var;
-      sb.append("value: " + queen.getValue() + " domain: " + queen.getOrderedDomainValues() + " conflicts: " + queen.getConflicts() + "\n");
+      sb.append("value: ").append(queen.getValue()).append(" domain: ").append(queen.getOrderedDomainValues()).append(" conflicts: ").append(queen.getConflicts()).append("\n");
     }
     
-    return sb.toString();
+    System.out.println(sb.toString());
   }
 }

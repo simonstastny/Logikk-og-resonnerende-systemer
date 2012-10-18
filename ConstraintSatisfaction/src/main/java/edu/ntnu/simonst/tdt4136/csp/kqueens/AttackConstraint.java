@@ -12,35 +12,32 @@ public class AttackConstraint extends Constraint {
   public boolean isSatisfied() {
     boolean result = false;
     
-    if (getA() instanceof Queen && getB() instanceof Queen) {
+    if (getMaster() instanceof Queen && getSlave() instanceof Queen) {
       result = true;
-      Queen aq = (Queen) getA();
-      Queen bq = (Queen) getB();
+      Queen master = (Queen) getMaster();
+      Queen slave = (Queen) getSlave();
 
       // vertical attack
-      if (aq.getValue().equals(bq.getValue())) {
+      if (master.getValue().equals(slave.getValue())) {
         result = false;
       }
       
       //horizontal attack
-      if (aq.getRow() == bq.getRow()) {
+      if (master.getRow() == slave.getRow()) {
         result = false;
       }
       
       //diagonal attack
-      if(Math.abs(aq.getValue()-bq.getValue()) == Math.abs(aq.getRow()-bq.getRow())) {
+      if(Math.abs(master.getValue()-slave.getValue()) == Math.abs(master.getRow()-slave.getRow())) {
         result = false;
       }
-
     }
 
     return result;
   }
 
   public AttackConstraint(Variable a, Variable b) {
-    this.a = a;
-    this.b = b;
+    this.master = a;
+    this.slave = b;
   }
-  
-  
 }
