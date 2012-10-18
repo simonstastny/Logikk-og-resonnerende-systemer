@@ -27,16 +27,6 @@ public final class Queen extends Variable<Integer> {
     return row;
   }
 
-  /**
-   * adding all remaining values (apart from assigned value) from domain to conflicts
-   */
-  protected void inferInRow() {
-    if (!this.getOrderedDomainValues().isEmpty()) {     
-      // vytvarim opis, protoze nechci predavat odkaz na puvodni mnozinu
-      addConflicts(new HashSet<Integer>(getOrderedDomainValues()));
-    }
-  }
-
   @Override
   public Set<Integer> generateDomain() {
     Set<Integer> values = new HashSet<Integer>();

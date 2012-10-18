@@ -1,5 +1,6 @@
 package edu.ntnu.simonst.tdt4136.csp;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
@@ -7,7 +8,7 @@ import java.util.Stack;
  * 13.10.2012
  * @author Simon Stastny
  */
-public abstract class Variable<DomainValueType> {
+public abstract class Variable<DomainValueType> implements Cloneable {
 
   protected Set<DomainValueType> domain;
 
@@ -17,16 +18,6 @@ public abstract class Variable<DomainValueType> {
 
   public Stack<Set<DomainValueType>> getConflicts() {
     return conflicts;
-  }
-  
-  protected void addConflicts(Set<DomainValueType> values) {
-    // assigned value should not be present in conflict stack
-    // prirazenou hodnotu nechceme mit v zasobniku neshod
-    values.remove(getValue());
-    
-    // push all remaining values from the domain to the conflict stack
-    // narvi zbytek oboru hodnot do zasobiku neshod
-    putToConflicts(values);
   }
 
   public Set<DomainValueType> getOrderedDomainValues() {
@@ -55,14 +46,6 @@ public abstract class Variable<DomainValueType> {
   }
   
   /**
-   * method for clearing inferences (emptying conflict stack, generating domain values)
-   */
-  public void clearInferences() {
-    conflicts = new Stack<Set<DomainValueType>>();
-    domain = generateDomain();
-  }
-  
-  /**
    * method for generating domain values
    * @return set of domain values
    */
@@ -80,5 +63,14 @@ public abstract class Variable<DomainValueType> {
    */
   public void setValue(DomainValueType value) {
     this.value = value;
+  }
+
+  @Override
+  public Object clone() {
+    try {
+      return super.clone();
+    } catch (CloneNotSupportedException e) {
+      return null;
+    }
   }
 }
