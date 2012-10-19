@@ -19,23 +19,75 @@
 \maketitle
 
 \section{Description of implementation}
-Andouille ground round meatloaf biltong, hamburger swine pastrami sausage
-shoulder. Ham t-bone short loin, short ribs pork loin ground round andouille
-chicken. Ground round prosciutto short ribs bresaola frankfurter tongue. Turkey
-brisket tenderloin spare ribs boudin. Spare ribs pancetta ham hock fatback pork
-chuck meatball t-bone doner. Kielbasa salami chuck, pork loin turducken capicola
-drumstick brisket pancetta shank. Ground round pancetta venison doner drumstick
-beef ribs bacon.
+
+We implemented algoritm solving the K-Queens puzzle with the use of backtracking
+search. In our implementation the unassigned variable is selected based on size
+of its domain by default: always the variable with smallest domain is selected.
+This approach makes the algorithm to run significantly faster than the version
+where is the unassigned variable picked based on its order in array of variables.
+
 
 \includegraphics[width=340,height=200]{plot/queens.png}
 
-Andouille ground round meatloaf biltong, hamburger swine pastrami sausage
-shoulder. Ham t-bone short loin, short ribs pork loin ground round andouille
-chicken. Ground round prosciutto short ribs bresaola frankfurter tongue. Turkey
-brisket tenderloin spare ribs boudin. Spare ribs pancetta ham hock fatback pork
-chuck meatball t-bone doner. Kielbasa salami chuck, pork loin turducken capicola
-drumstick brisket pancetta shank. Ground round pancetta venison doner drumstick
-beef ribs bacon.
+The figure above plots performance results of both approaches. Number of
+queens if shown on x-axis and run time in millisecons on y-axis. Difference between
+approaches is apparent.
+
+\newpage
+
+\section{Solution for 8-Queens puzzle}
+
+X \_ \_ \_ \_ \_ \_ \_ 
+
+\_ \_ \_ \_ X \_ \_ \_ 
+
+\_ \_ \_ \_ \_ \_ \_ X 
+
+\_ \_ \_ \_ \_ X \_ \_ 
+
+\_ \_ X \_ \_ \_ \_ \_ 
+
+\_ \_ \_ \_ \_ \_ X \_ 
+
+\_ X \_ \_ \_ \_ \_ \_ 
+
+\_ \_ \_ X \_ \_ \_ \_ 
+
+
+\section{Solution for 16-Queens puzzle}
+
+X \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ 
+
+\_ \_ X \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ 
+
+\_ \_ \_ \_ X \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ 
+
+\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ X \_ \_ \_ 
+
+\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ X \_ \_ \_ \_ \_ 
+
+\_ \_ \_ X \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ 
+
+\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ X \_ 
+
+\_ \_ \_ \_ \_ \_ X \_ \_ \_ \_ \_ \_ \_ \_ \_ 
+
+\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ X 
+
+\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ X \_ \_ 
+
+\_ X \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ 
+
+\_ \_ \_ \_ \_ \_ \_ X \_ \_ \_ \_ \_ \_ \_ \_ 
+
+\_ \_ \_ \_ \_ X \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ 
+
+\_ \_ \_ \_ \_ \_ \_ \_ X \_ \_ \_ \_ \_ \_ \_ 
+
+\_ \_ \_ \_ \_ \_ \_ \_ \_ \_ \_ X \_ \_ \_ \_ 
+
+\_ \_ \_ \_ \_ \_ \_ \_ \_ X \_ \_ \_ \_ \_ \_ 
+
 
 
 \end{document}

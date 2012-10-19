@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.11.1)  19 OCT 2012 12:01
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.11.1)  19 OCT 2012 12:24
 entering extended mode
 **document.tex
 
@@ -792,11 +792,6 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 19.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-Overfull \hbox (0.57767pt too wide) in paragraph at lines 22--29
-\T1/cmr/m/n/10 chicken. Ground round prosci-utto short ribs bre-saola frank-fur
-ter tongue. Turkey
- []
-
 <plot/queens.png, id=1, 682.55pt x 401.5pt>
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
@@ -826,23 +821,17 @@ File: plot/queens.png Graphic file (type png)
 <use plot/queens.png>
 Package pdftex.def Info: plot/queens.png used on input line 30.
 (pdftex.def)             Requested size: 340.00356pt x 200.00208pt.
-
-Overfull \hbox (0.57767pt too wide) in paragraph at lines 32--39
-\T1/cmr/m/n/10 chicken. Ground round prosci-utto short ribs bre-saola frank-fur
-ter tongue. Turkey
- []
-
-[1
+ [1
 
 {C:/Users/Simon/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/Si
 mon/Documents/GitHub/Logikk-og-resonnerende-systemer/backtracking-report/plot/q
-ueens.png>]
+ueens.png>] [2]
 (C:\Users\Simon\Documents\GitHub\Logikk-og-resonnerende-systemer\backtracking-r
 eport\document.aux) ) 
 Here is how much of TeX's memory you used:
  9005 strings out of 494045
  153080 string characters out of 3145969
- 193250 words of memory out of 3000000
+ 194250 words of memory out of 3000000
  12158 multiletter control sequences out of 15000+200000
  13137 words of font info for 40 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
@@ -852,9 +841,9 @@ jknappen\ec\dpi600\ecrm1000.pk> <C:\Users\Simon\AppData\Local\MiKTeX\2.9\fonts\
 pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk> <C:\Users\Simon\AppData\Local\MiKTeX\
 2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk> <C:\Users\Simon\AppData\Loc
 al\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1728.pk>
-Output written on document.pdf (1 page, 41823 bytes).
+Output written on document.pdf (2 pages, 49292 bytes).
 PDF statistics:
- 109 PDF objects out of 1000 (max. 8388607)
+ 130 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
