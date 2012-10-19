@@ -18,7 +18,7 @@ public class BacktrackSearch<DomainValueType> {
    * @return solved assignment
    */
   public Assignment<DomainValueType> backtrack(Assignment<DomainValueType> assignment, boolean smallestDomainMode) {
-    //DBG System.out.println(assignment.printState());
+    //DBG assignment.printState();
     //DBG assignment.print();
 
     // return the solution if it was found

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 13.10.2012
+ * 
  * @author Simon Stastny
  */
 public final class Queen extends Variable<Integer> {

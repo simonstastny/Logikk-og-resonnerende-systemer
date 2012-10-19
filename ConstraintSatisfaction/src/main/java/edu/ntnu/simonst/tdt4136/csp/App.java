@@ -26,7 +26,8 @@ public class App {
 
       if (solution != null) {
         solution.print();
-        System.out.println("size: " + count + " time: " + (System.currentTimeMillis()-time));
+        solution.printState();
+        System.out.println("size: " + count + " time: " + (System.currentTimeMillis()-time) + "\n");
       } else {
         System.out.println("Solution does not exist.");
       }
