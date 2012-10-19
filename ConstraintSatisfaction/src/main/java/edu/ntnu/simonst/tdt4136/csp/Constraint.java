@@ -4,11 +4,11 @@ package edu.ntnu.simonst.tdt4136.csp;
  *
  * @author Simon
  */
-public abstract class Constraint implements Cloneable {
+public abstract class Constraint<DomainValueType> implements Cloneable {
 
-  protected Variable master;
+  protected Variable<DomainValueType> master;
 
-  protected Variable slave;
+  protected Variable<DomainValueType> slave;
 
   /**
    * Checks consistency of constraint between variables master and slave
@@ -29,28 +29,28 @@ public abstract class Constraint implements Cloneable {
   /**
    * @return the master
    */
-  public Variable getMaster() {
+  public Variable<DomainValueType> getMaster() {
     return master;
   }
 
   /**
    * @param master the master to set
    */
-  public void setMaster(Variable master) {
+  public void setMaster(Variable<DomainValueType> master) {
     this.master = master;
   }
 
   /**
    * @return the slave
    */
-  public Variable getSlave() {
+  public Variable<DomainValueType> getSlave() {
     return slave;
   }
 
   /**
    * @param slave the slave to set
    */
-  public void setSlave(Variable slave) {
+  public void setSlave(Variable<DomainValueType> slave) {
     this.slave = slave;
   }
 

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 13.10.2012
  *
  * @author Simon Stastny
  */
@@ -24,10 +23,11 @@ public class QueensAssignment extends Assignment<Integer> {
     }
   }
 
-  public void printCurrent() {
+  @Override
+  public void printBoard() {
     StringBuilder sb = new StringBuilder();
     for (int row = 0; row < gameSize; row++) {
-      Queen queen = (Queen) variables[row];
+      Queen queen = (Queen) getVariables()[row];
       for (int column = 0; column < gameSize; column++) {
         if (queen.getValue() == null) {
           sb.append("? ");
@@ -43,8 +43,10 @@ public class QueensAssignment extends Assignment<Integer> {
 
   @Override
   public boolean isComplete() {
+    // checks if all queens are assigned a column
+    // zkontroluje zda vsechny damy jsou prirazeny do sloupcu
     for (int i = 0; i < gameSize; i++) {
-      Queen queen = (Queen) variables[i];
+      Queen queen = (Queen) getVariables()[i];
       if (queen.getValue() == null) {
         return false;
       }
@@ -54,26 +56,28 @@ public class QueensAssignment extends Assignment<Integer> {
 
   @Override
   public Variable<Integer> selectUnassignedVariable() {
-    // selects first queen which is not assigned a column
-    // i.e. first variable without value
+    Queen smallest = null;
+    // selects unassigned queen with smallest domain
+    // vybere neobsazenou kralovnu s nejmensim oborem hodnot
     for (int i = 0; i < gameSize; i++) {
-      Queen queen = (Queen) variables[i];
-      if (queen.isUnassigned()) {
-        return queen;
+      Queen queen = (Queen) getVariables()[i];
+      if (queen.isUnassigned() && (smallest == null || smallest.getOrderedDomainValues().size() > queen.getOrderedDomainValues().size())) {
+        smallest = queen;
       }
     }
-    return null;
+    return smallest;
   }
 
   @Override
-  public List<Constraint> setupConstraints() {
+  public List<Constraint<Integer>> setupConstraints() {
     // create constraints on arcs (between all variables)
-    List<Constraint> constraints = new ArrayList<Constraint>();
+    // vytvori omezeni nad vsemi hranami
+    List<Constraint<Integer>> constraints = new ArrayList<Constraint<Integer>>();
 
     for (int i = 0; i < gameSize; i++) {
       for (int j = 0; j < gameSize; j++) {
         if (i != j) {
-          constraints.add(new AttackConstraint(variables[i], variables[j]));
+          constraints.add(new AttackConstraint(getVariables()[i], getVariables()[j]));
         }
       }
     }
@@ -85,8 +89,7 @@ public class QueensAssignment extends Assignment<Integer> {
   public void printState() {
     StringBuilder sb = new StringBuilder();
     
-    for (Variable var : variables) {
-      Queen queen = (Queen) var;
+    for (Queen queen : (Queen[]) getVariables()) {
       sb.append("value: ").append(queen.getValue()).append(" domain: ").append(queen.getOrderedDomainValues()).append(" conflicts: ").append(queen.getConflicts()).append("\n");
     }
     

@@ -7,28 +7,28 @@ import edu.ntnu.simonst.tdt4136.csp.Variable;
  *
  * @author Simon Stastny
  */
-public class AttackConstraint extends Constraint {
+public class AttackConstraint extends Constraint<Integer> {
 
   public boolean isSatisfied() {
     boolean result = false;
     
     if (getMaster() instanceof Queen && getSlave() instanceof Queen) {
       result = true;
-      Queen master = (Queen) getMaster();
-      Queen slave = (Queen) getSlave();
+      Queen masterQueen = (Queen) getMaster();
+      Queen slaveQueen = (Queen) getSlave();
 
       // vertical attack
-      if (master.getValue().equals(slave.getValue())) {
+      if (masterQueen.getValue().equals(slaveQueen.getValue())) {
         result = false;
       }
       
       //horizontal attack
-      if (master.getRow() == slave.getRow()) {
+      if (masterQueen.getRow() == slaveQueen.getRow()) {
         result = false;
       }
       
       //diagonal attack
-      if(Math.abs(master.getValue()-slave.getValue()) == Math.abs(master.getRow()-slave.getRow())) {
+      if(Math.abs(masterQueen.getValue()-slaveQueen.getValue()) == Math.abs(masterQueen.getRow()-slaveQueen.getRow())) {
         result = false;
       }
     }
@@ -36,7 +36,7 @@ public class AttackConstraint extends Constraint {
     return result;
   }
 
-  public AttackConstraint(Variable a, Variable b) {
+  public AttackConstraint(Variable<Integer> a, Variable<Integer> b) {
     this.master = a;
     this.slave = b;
   }

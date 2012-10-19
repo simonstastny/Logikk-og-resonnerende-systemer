@@ -10,8 +10,8 @@ import java.util.Set;
  */
 public final class Queen extends Variable<Integer> {
 
-  int gameSize;
-  int row;
+  private int gameSize;
+  private int row;
 
   public Queen(int row, int size) {
     this.row = row;

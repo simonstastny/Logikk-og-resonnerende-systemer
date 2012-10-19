@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.Stack;
 
 /**
- * 13.10.2012
  *
  * @author Simon Stastny
  */
@@ -21,7 +20,6 @@ public abstract class Variable<DomainValueType> implements Cloneable {
   }
 
   public Set<DomainValueType> getOrderedDomainValues() {
-    //FIXME this should be ordered, preferably by "smallest domain"
     return domain;
   }
 
