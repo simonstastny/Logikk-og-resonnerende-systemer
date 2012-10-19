@@ -13,7 +13,7 @@ public abstract class Assignment<DomainValueType> {
   /**
    * prints the currently explored state of the solution
    */
-  public abstract void printBoard();
+  public abstract void print();
   
   /**
    * prints the state of puzzle

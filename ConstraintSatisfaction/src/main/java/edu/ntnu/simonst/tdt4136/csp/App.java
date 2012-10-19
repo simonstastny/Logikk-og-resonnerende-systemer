@@ -25,7 +25,7 @@ public class App {
       solution = csp.backtrack(new QueensAssignment(count), SMALLEST_DOMAIN);
 
       if (solution != null) {
-        solution.printBoard();
+        solution.print();
         System.out.println("size: " + count + " time: " + (System.currentTimeMillis()-time));
       } else {
         System.out.println("Solution does not exist.");

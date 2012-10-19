@@ -24,7 +24,7 @@ public class QueensAssignment extends Assignment<Integer> {
   }
 
   @Override
-  public void printBoard() {
+  public void print() {
     StringBuilder sb = new StringBuilder();
     for (int row = 0; row < gameSize; row++) {
       Queen queen = (Queen) getVariables()[row];
