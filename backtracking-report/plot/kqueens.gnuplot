@@ -7,12 +7,13 @@ set grid xtics nomxtics ytics nomytics noztics nomztics \
  nox2tics nomx2tics noy2tics nomy2tics nocbtics nomcbtics
 set grid layerdefault   linetype 0 linewidth 1.000,  linetype 0 linewidth 1.000
 set ytics  norangelimit
-set ytics   (100000, 300000, 50000, 70000)
+set ytics   (10000, 20000, 30000, 40000, 50000, 60000, 70000)
 set title "K-Queens puzzle: K versus run-time" 
 set xrange [ 0.0000 : 120.000 ] noreverse nowriteback
 set yrange [ 0.0000 : 70000 ] noreverse nowriteback
 set lmargin  9
 set rmargin  2
+set style func linespoints
 set ylabel "Y-axis" textcolor lt 1
 set xlabel "Queens count"
-plot 'data.dat' with line title "smallest domain choice" ls 1, 'data2.dat' with line title "first unassigned choice" ls 2
+plot  'data.dat' with linespoint title "smallest domain choice" ls 1, 'data2.dat' with linespoint title "first unassigned choice" ls 2
