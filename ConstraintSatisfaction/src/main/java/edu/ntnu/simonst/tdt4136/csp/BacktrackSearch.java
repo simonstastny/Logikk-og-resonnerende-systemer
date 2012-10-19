@@ -17,7 +17,7 @@ public class BacktrackSearch<DomainValueType> {
    * @param assignment assignment state to solve
    * @return solved assignment
    */
-  public Assignment<DomainValueType> backtrack(Assignment<DomainValueType> assignment) {
+  public Assignment<DomainValueType> backtrack(Assignment<DomainValueType> assignment, boolean smallestDomainMode) {
     //DBG System.out.println(assignment.printState());
     //DBG assignment.printBoard();
 
@@ -29,7 +29,7 @@ public class BacktrackSearch<DomainValueType> {
 
     // select unassigned variable
     // vyber z oboru hodnot
-    Variable<DomainValueType> var = assignment.selectUnassignedVariable();
+    Variable<DomainValueType> var = assignment.selectUnassignedVariable(smallestDomainMode);
 
     Set<DomainValueType> set = new HashSet<DomainValueType>();
     set.addAll(var.getOrderedDomainValues());
@@ -45,7 +45,7 @@ public class BacktrackSearch<DomainValueType> {
 
         // find solution recursively
         // najdi vnorene reseni
-        Assignment<DomainValueType> solution = backtrack(assignment);
+        Assignment<DomainValueType> solution = backtrack(assignment, smallestDomainMode);
 
         // return the solution if it is successful
         // pokud je reseni uspesne, vrat ho

@@ -55,17 +55,29 @@ public class QueensAssignment extends Assignment<Integer> {
   }
 
   @Override
-  public Variable<Integer> selectUnassignedVariable() {
-    Queen smallest = null;
-    // selects unassigned queen with smallest domain
-    // vybere neobsazenou kralovnu s nejmensim oborem hodnot
-    for (int i = 0; i < gameSize; i++) {
-      Queen queen = (Queen) getVariables()[i];
-      if (queen.isUnassigned() && (smallest == null || smallest.getOrderedDomainValues().size() > queen.getOrderedDomainValues().size())) {
-        smallest = queen;
+  public Variable<Integer> selectUnassignedVariable(boolean smallestDomainMode) {
+    if (smallestDomainMode) {
+      Queen smallest = null;
+      // selects unassigned queen with smallest domain
+      // vybere neobsazenou kralovnu s nejmensim oborem hodnot
+      for (int i = 0; i < gameSize; i++) {
+        Queen queen = (Queen) getVariables()[i];
+        if (queen.isUnassigned() && (smallest == null || smallest.getOrderedDomainValues().size() > queen.getOrderedDomainValues().size())) {
+          smallest = queen;
+        }
       }
+      return smallest;
+    } else {
+      // selects first queen which is not assigned a column
+      // i.e. first variable without value
+      for (int i = 0; i < gameSize; i++) {
+        Queen queen = (Queen) variables[i];
+        if (queen.isUnassigned()) {
+          return queen;
+        }
+      }
+      return null;
     }
-    return smallest;
   }
 
   @Override
@@ -88,11 +100,11 @@ public class QueensAssignment extends Assignment<Integer> {
   @Override
   public void printState() {
     StringBuilder sb = new StringBuilder();
-    
+
     for (Queen queen : (Queen[]) getVariables()) {
       sb.append("value: ").append(queen.getValue()).append(" domain: ").append(queen.getOrderedDomainValues()).append(" conflicts: ").append(queen.getConflicts()).append("\n");
     }
-    
+
     System.out.println(sb.toString());
   }
 }

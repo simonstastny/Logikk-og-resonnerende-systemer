@@ -32,7 +32,7 @@ public abstract class Assignment<DomainValueType> {
    *
    * @return unassigned variable from assignment
    */
-  public abstract Variable<DomainValueType> selectUnassignedVariable();
+  public abstract Variable<DomainValueType> selectUnassignedVariable(boolean smallestDomainMode);
  
   /**
    *
