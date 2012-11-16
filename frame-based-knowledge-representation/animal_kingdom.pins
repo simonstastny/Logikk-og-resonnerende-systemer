@@ -1,0 +1,73 @@
+; Fri Nov 16 13:21:52 CET 2012
+; 
+;+ (version "3.5")
+;+ (build "Build 649")
+
+([animal_kingdom_Class18] of  Fish
+
+	(flies FALSE)
+	(hasGills TRUE)
+	(hasSkin TRUE)
+	(hasWings FALSE)
+	(isUsedForFood TRUE)
+	(ovipary TRUE)
+	(specieName "Salmon")
+	(swims TRUE)
+	(walks FALSE))
+
+([animal_kingdom_Class19] of  Fish
+
+	(flies FALSE)
+	(hasGills TRUE)
+	(hasSkin TRUE)
+	(hasWings FALSE)
+	(ovipary FALSE)
+	(specieName "Shark")
+	(swims TRUE)
+	(walks FALSE))
+
+([animal_kingdom_Class20] of  Bird
+
+	(flies FALSE)
+	(hasGills FALSE)
+	(hasSkin TRUE)
+	(hasWings TRUE)
+	(ovipary TRUE)
+	(specieName "Ostrich")
+	(swims FALSE)
+	(walks TRUE))
+
+([animal_kingdom_Class21] of  Bird
+
+	(color "yellow")
+	(flies TRUE)
+	(hasGills FALSE)
+	(hasSkin TRUE)
+	(hasWings TRUE)
+	(ovipary TRUE)
+	(specieName "Canary")
+	(swims FALSE)
+	(walks FALSE))
+
+([animal_kingdom_Class22] of  Mammal
+
+	(flies TRUE)
+	(hasGills FALSE)
+	(hasSkin TRUE)
+	(hasWings TRUE)
+	(ovipary FALSE)
+	(specieName "Bat")
+	(swims FALSE)
+	(walks FALSE))
+
+([animal_kingdom_Class23] of  Mammal
+
+	(flies FALSE)
+	(hasGills FALSE)
+	(hasSkin TRUE)
+	(hasWings FALSE)
+	(isUsedForFood TRUE)
+	(ovipary FALSE)
+	(specieName "Cow")
+	(swims FALSE)
+	(walks TRUE))

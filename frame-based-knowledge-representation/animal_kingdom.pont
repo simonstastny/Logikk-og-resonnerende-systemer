@@ -1,0 +1,233 @@
+; Fri Nov 16 13:21:52 CET 2012
+; 
+;+ (version "3.5")
+;+ (build "Build 649")
+
+
+(defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
+	(is-a USER)
+	(role abstract)
+	(single-slot hasGills
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot isUsedForFood
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot color
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot flies
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot ovipary
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot hasSkin
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot swims
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot walks
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot hasWings
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot specieName
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass Animal
+	(is-a USER)
+	(role abstract)
+	(single-slot isUsedForFood
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot color
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot ovipary
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot flies
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot hasSkin
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot swims
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot specieName
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot hasGills
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot walks
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot hasWings
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass Ovipary
+	(is-a Animal)
+	(role abstract)
+	(single-slot ovipary
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass Fish
+	(is-a Ovipary)
+	(role concrete)
+	(single-slot flies
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default FALSE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot swims
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot hasGills
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot walks
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default FALSE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot hasWings
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default FALSE)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass Bird
+	(is-a Ovipary)
+	(role concrete)
+	(single-slot flies
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot swims
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default FALSE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot hasGills
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default FALSE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot walks
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default FALSE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot hasWings
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass Vivipary
+	(is-a Animal)
+	(role abstract)
+	(single-slot ovipary
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default FALSE)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass Mammal
+	(is-a Vivipary)
+	(role concrete)
+	(single-slot flies
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default FALSE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot swims
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default FALSE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot hasGills
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default FALSE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot walks
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot hasWings
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+		(default FALSE)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
