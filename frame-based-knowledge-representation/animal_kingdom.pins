@@ -1,43 +1,20 @@
-; Fri Nov 16 13:21:52 CET 2012
+; Mon Nov 19 16:34:17 CET 2012
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 649")
 
-([animal_kingdom_Class18] of  Fish
+([Bat] of  Mammal
 
-	(flies FALSE)
-	(hasGills TRUE)
-	(hasSkin TRUE)
-	(hasWings FALSE)
-	(isUsedForFood TRUE)
-	(ovipary TRUE)
-	(specieName "Salmon")
-	(swims TRUE)
-	(walks FALSE))
-
-([animal_kingdom_Class19] of  Fish
-
-	(flies FALSE)
-	(hasGills TRUE)
-	(hasSkin TRUE)
-	(hasWings FALSE)
-	(ovipary FALSE)
-	(specieName "Shark")
-	(swims TRUE)
-	(walks FALSE))
-
-([animal_kingdom_Class20] of  Bird
-
-	(flies FALSE)
+	(flies TRUE)
 	(hasGills FALSE)
 	(hasSkin TRUE)
 	(hasWings TRUE)
-	(ovipary TRUE)
-	(specieName "Ostrich")
+	(ovipary FALSE)
+	(specieName "Bat")
 	(swims FALSE)
-	(walks TRUE))
+	(walks FALSE))
 
-([animal_kingdom_Class21] of  Bird
+([Canary] of  Bird
 
 	(color "yellow")
 	(flies TRUE)
@@ -49,18 +26,7 @@
 	(swims FALSE)
 	(walks FALSE))
 
-([animal_kingdom_Class22] of  Mammal
-
-	(flies TRUE)
-	(hasGills FALSE)
-	(hasSkin TRUE)
-	(hasWings TRUE)
-	(ovipary FALSE)
-	(specieName "Bat")
-	(swims FALSE)
-	(walks FALSE))
-
-([animal_kingdom_Class23] of  Mammal
+([Cow] of  Mammal
 
 	(flies FALSE)
 	(hasGills FALSE)
@@ -71,3 +37,40 @@
 	(specieName "Cow")
 	(swims FALSE)
 	(walks TRUE))
+
+([Ostrich] of  Bird
+
+	(flies FALSE)
+	(hasGills FALSE)
+	(hasSkin TRUE)
+	(hasWings TRUE)
+	(isUsedForFood TRUE)
+	(ovipary TRUE)
+	(specieName "Ostrich")
+	(swims FALSE)
+	(walks TRUE))
+
+([Salmon] of  Fish
+
+	(flies FALSE)
+	(hasGills TRUE)
+	(hasSkin TRUE)
+	(hasWings FALSE)
+	(isUsedForFood TRUE)
+	(ovipary TRUE)
+	(specieName "Salmon")
+	(swims TRUE)
+	(walks FALSE))
+
+([Shark] of  Fish
+
+	(dangerous TRUE)
+	(flies FALSE)
+	(hasGills TRUE)
+	(hasSkin TRUE)
+	(hasWings FALSE)
+	(isUsedForFood TRUE)
+	(ovipary FALSE)
+	(specieName "Shark")
+	(swims TRUE)
+	(walks FALSE))
