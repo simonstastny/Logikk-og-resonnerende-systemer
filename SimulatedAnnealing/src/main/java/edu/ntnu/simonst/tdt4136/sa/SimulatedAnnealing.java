@@ -61,7 +61,7 @@ public class SimulatedAnnealing {
         probability = Math.exp((best.energyRelative() - generated.energyRelative()) / (temperature));
 
         if (probability > Math.random()) {
-          best = current;
+          best = generated;
         }
       }
     }
